@@ -5215,7 +5215,7 @@ void game::complete_butcher(int index)
  int age = m.i_at(u.posx, u.posy)[index].bday;
  m.i_rem(u.posx, u.posy, index);
  int factor = u.butcher_factor();
- int pieces, pelts;
+ int pieces, pelts, spoils, spelts;
  double skill_shift = 0.;
  switch (corpse->size) {
   case MS_TINY:   pieces =  1; pelts =  1; break;
@@ -5224,32 +5224,27 @@ void game::complete_butcher(int index)
   case MS_LARGE:  pieces =  8; pelts = 10; break;
   case MS_HUGE:   pieces = 16; pelts = 18; break;
  }
- if (u.sklevel[sk_survival] < 3)
-  skill_shift -= rng(0, 8 - u.sklevel[sk_survival]);
- else
-  skill_shift += rng(0, u.sklevel[sk_survival]);
- if (u.dex_cur < 8)
-  skill_shift -= rng(0, 8 - u.dex_cur) / 4;
- else
-  skill_shift += rng(0, u.dex_cur - 8) / 4;
- if (u.str_cur < 4)
-  skill_shift -= rng(0, 5 * (4 - u.str_cur)) / 4;
- if (factor > 0)
-  skill_shift -= rng(0, factor / 5);
+ int rpieces = (pieces / 2);
+ int rpelts = (pelts / 2);
+ int leftpelts = rng(0, rpelts)  + sk_survival;
+ if (leftpelts >= pelts)
+  leftpelts = pelts;
+ int leftovers = rng(0, rpieces) + sk_survival;
+ if (leftovers >= pieces)
+  leftovers = pieces;
 
  int practice = 4 + pieces;
  if (practice > 20)
   practice = 20;
  u.practice(sk_survival, practice);
 
- pieces += int(skill_shift);
- if (skill_shift < 5)	// Lose some pelts
-  pelts += (skill_shift - 5);
+ spoils = (rpieces + leftovers);
+  spelts = (rpelts + leftpelts);
 
  if ((corpse->has_flag(MF_FUR) || corpse->has_flag(MF_LEATHER)) &&
-     pelts > 0) {
+     spelts > 0) {
   add_msg("You manage to skin the %s!", corpse->name.c_str());
-  for (int i = 0; i < pelts; i++) {
+  for (int i = 0; i < spelts; i++) {
    itype* pelt;
    if (corpse->has_flag(MF_FUR) && corpse->has_flag(MF_LEATHER)) {
     if (one_in(2))
@@ -5263,8 +5258,8 @@ void game::complete_butcher(int index)
    m.add_item(u.posx, u.posy, pelt, age);
   }
  }
- if (pieces <= 0)
-  add_msg("Your clumsy butchering destroys the meat!");
+ if (spoils <= pieces)
+  add_msg("Your clumsy butchering destroys much of the meat!");
  else {
   itype* meat;
   if (corpse->has_flag(MF_POISON)) {

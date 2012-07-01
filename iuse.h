@@ -98,6 +98,7 @@ class iuse
   void vortex		(game *g, player *p, item *it, bool t);
   void dog_whistle	(game *g, player *p, item *it, bool t);
   void vacutainer	(game *g, player *p, item *it, bool t);
+  void knife            (game *g, player *p, item *it, bool t);
 // MACGUFFINS
   void mcg_note		(game *g, player *p, item *it, bool t);
 // ARTIFACTS

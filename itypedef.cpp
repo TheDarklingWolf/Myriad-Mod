@@ -175,7 +175,7 @@ fun,container,itm_null,use_func,addict_func));
 //   NAME		RAR PRC	COLOR		MAT1	CONTAINER
 FOOD("chunk of meat",	50, 50,	c_red,		FLESH,  itm_null,
 // VOL WGT QUE NUT SPO STM HTH ADD CHG FUN	 use_func    addiction type
-    1,  2,  0, 20, 24,  0, -1,  0,  1,-10,	&iuse::none, ADD_NULL, "\
+    1,  2,  0, 5, 12,  0, -1,  0,  1,-15,	&iuse::none, ADD_NULL, "\
 Freshly butchered meat.  You could eat it raw, but cooking it is better.");
 
 FOOD("chunk of veggy",	30, 60,	c_green,	VEGGY,	itm_null,
@@ -191,7 +191,7 @@ FOOD("tainted veggy",	35,  5,	c_green,	VEGGY,	itm_null,
 Vegetable that looks poisonous.  You could eat it, but it will poison you.");
 
 FOOD("cooked meat",	 0, 75, c_red,		FLESH,	itm_null,
-    1,  2,  0, 50, 24,  0,  0,  0,  1,  8,	&iuse::none,	ADD_NULL, "\
+    1,  2,  0, 12, 48,  0,  0,  0,  1,  8,	&iuse::none,	ADD_NULL, "\
 Freshly cooked meat.  Very nutritious.");
 
 FOOD("cooked veggy",	 0, 70, c_green,	VEGGY,	itm_null,
@@ -806,23 +806,6 @@ MELEE("butter knife",	90,  15,';', c_ltcyan,	STEEL, 	MNULL,
 	 1,  2,  2,  1, -2, 0, "\
 A dull knife, absolutely worthless in combat.");
 
-MELEE("steak knife",	85,  25,';', c_ltcyan,	STEEL,	MNULL,
-	 1,  2,  2, 10, -3, mfb(IF_STAB), "\
-A sharp knife.  Makes a poor melee weapon, but is decent at butchering\n\
-corpses.");
-
-MELEE("butcher knife",	10,  80,';', c_cyan,	STEEL,	MNULL,
-	 3,  6,  4, 18, -3, 0, "\
-A sharp, heavy knife.  Makes a good melee weapon, and is the best item for\n\
-butchering corpses.");
-
-//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
-MELEE("combat knife",	14, 100,';', c_blue,	STEEL,  PLASTIC,
-//	VOL WGT DAM CUT HIT FLAGS
-	 2,  2,  2, 22, -2, mfb(IF_STAB), "\
-Designed for combat, and deadly in the right hands.  Can be used to butcher\n\
-corpses.");
-
 MELEE("two by four", 	60,  80,'/', c_ltred,	WOOD,	MNULL,
 	 6,  6, 14,  0,  1, 0, "\
 A plank of wood.  Makes a decent melee weapon, and can be used to board up\n\
@@ -987,6 +970,18 @@ A colorful, hard ball.  Essentially a rock.");
 MELEE("candlestick",	20,100,'/', c_yellow,	SILVER,	MNULL,
 	 1,  5, 12,  0,  1,  0, "\
 A gold candlestick.");
+
+MELEE("log",            20,100,'/', c_brown,    WOOD,   MNULL,
+         20, 25, 20, 0, -5, 0, "\
+A relatively large and sturdy log, cut from a tree.");
+
+MELEE("splintered wood", 	60,  80,'/', c_ltred,	WOOD,	MNULL,
+	 6,  6, 9,  0,  1, 0, "\
+A splintered piece of wood, useless as anything but kindling");
+
+MELEE("skewer",                 10,  10,',', c_brown,   WOOD,   MNULL,
+         0,  1, 0,  0,  -10, 0, "\
+A thin wooden skewer. Squirrel on a stick, anyone?");
 
 //      NAME           RAR PRC SYM COLOR        MAT1    MAT2
 MELEE("steel frame",  25, 35, ',', c_cyan,  STEEL,   MNULL,
@@ -3234,6 +3229,26 @@ TOOL("welder",   10,900,';', c_ltred,  IRON,MNULL,
      6,  24,  7,  0, -1,  1000,  300,  50,  0, AT_BATT, itm_null, &iuse::none,
 0, "\
 A tool for welding metal pieces together.  Useful for construction.");
+
+
+TOOL("steak knife",	85,  25,';', c_ltcyan,	STEEL,	MNULL,
+     1,  2,  2, 10, -3, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::knife,
+ mfb(IF_STAB), "\
+A sharp knife.  Makes a poor melee weapon, but is decent at butchering\n\
+corpses.");
+
+TOOL("butcher knife",	10,  80,';', c_cyan,	STEEL,	MNULL,
+	 3,  6,  4, 18, -3 ,0, 0, 0, 0, AT_NULL, itm_null, &iuse::knife, 0, "\
+A sharp, heavy knife.  Makes a good melee weapon, and is the best item for\n\
+butchering corpses.");
+
+//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
+TOOL("combat knife",	14, 100,';', c_blue,	STEEL,  PLASTIC,
+//	VOL WGT DAM CUT HIT FLAGS
+	 2,  2,  2, 22, -2, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::knife, 
+mfb(IF_STAB), "\
+Designed for combat, and deadly in the right hands.  Can be used to butcher\n\
+corpses.");
 
 // BIONICS
 // These are the modules used to install new bionics in the player.  They're
