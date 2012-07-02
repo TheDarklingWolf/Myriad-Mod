@@ -99,6 +99,8 @@ class iuse
   void dog_whistle	(game *g, player *p, item *it, bool t);
   void vacutainer	(game *g, player *p, item *it, bool t);
   void knife            (game *g, player *p, item *it, bool t);
+  void etool_c          (game *g, player *p, item *it, bool t);
+  void etool            (game *g, player *p, item *it, bool t);
 // MACGUFFINS
   void mcg_note		(game *g, player *p, item *it, bool t);
 // ARTIFACTS

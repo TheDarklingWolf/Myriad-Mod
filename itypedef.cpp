@@ -3250,6 +3250,19 @@ mfb(IF_STAB), "\
 Designed for combat, and deadly in the right hands.  Can be used to butcher\n\
 corpses.");
 
+TOOL("entrenching tool (folded)", 11, 200,';', c_blue, STEEL, MNULL,
+         3, 10,  3, 0,  -2, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::etool_c,
+0, "\
+This is a standard issue entrenching tool, folded up for storage.\n\
+It has a sharpened edge, making it an effective weapon as well as\n\
+digging tool");
+
+TOOL("entrenching tool",          0, 200,';', c_blue, STEEL, MNULL,
+        11, 10,  6, 12, 0, 0, 0, 0, 0,  AT_NULL, itm_null, &iuse::etool,
+0, "\
+This is a standard issue entrenching tool\n\
+It has a sharpened edge, making it an effective weapon as well as\n\
+digging tool"); 
 // BIONICS
 // These are the modules used to install new bionics in the player.  They're
 // very simple and straightforward; a difficulty, followed by a NULL-terminated

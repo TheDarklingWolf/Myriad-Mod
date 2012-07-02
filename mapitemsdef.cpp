@@ -408,7 +408,7 @@ void game::init_mapitems()
 	itm_novel_romance, itm_novel_spy, itm_novel_scifi, itm_novel_drama,
 	itm_SICP, itm_textbook_robots, itm_extinguisher, itm_radio,
 	itm_chainsaw_off, itm_jackhammer, itm_ring, itm_necklace, itm_usb_drive,
-	itm_broadsword, itm_morningstar, itm_helmet_plate,
+	itm_broadsword, itm_morningstar, itm_helmet_plate, itm_e_tool_c,
 	NULL);
 
  setvector(
@@ -417,7 +417,7 @@ void game::init_mapitems()
 	itm_mag_guns, itm_manual_brawl, itm_manual_knives,
 	itm_manual_mechanics, itm_manual_first_aid, itm_manual_traps,
 	itm_flashlight, itm_water_purifier, itm_two_way_radio, itm_radio,
-	itm_geiger_off, itm_usb_drive, NULL);
+	itm_geiger_off, itm_usb_drive, itm_e_tool_c, NULL);
 
  setvector(
    mapitems[mi_shelter],

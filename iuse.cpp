@@ -2167,6 +2167,28 @@ char ch = g->inv("Chop up what?");
 break;
  }
 }
+
+void iuse::etool_c(game *g, player *p, item *it, bool t)
+{
+if (query_yn("Unfold your entrenching tool? This will take a few minutes")) {
+it->make(g->itypes[itm_e_tool]);
+p->moves -= 300;
+g->add_msg("You unfold the entrenching tool");
+ } else {
+g->add_msg("Never mind.");
+ }
+}
+
+void iuse::etool(game *g, player *p, item *it, bool t)
+{
+if (query_yn("Fold your entrenching tool? This will take a few minutes")) {
+it->make(g->itypes[itm_e_tool_c]);
+p->moves -= 300;
+g->add_msg("You fold the entrenching tool up for storage");
+ } else {
+g->add_msg("Never mind.");
+ }
+}
 /* MACGUFFIN FUNCTIONS
  * These functions should refer to it->associated_mission for the particulars
  */
