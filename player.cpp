@@ -4224,7 +4224,7 @@ void player::read(game *g, char ch)
  activity = player_activity(ACT_READ, time, index);
  moves = 0;
 }
- 
+
 void player::try_to_sleep(game *g)
 {
  if (g->m.ter(posx, posy) == t_bed)
@@ -4250,6 +4250,10 @@ bool player::can_sleep(game *g)
   sleepy += 4;
  else if (g->m.ter(posx, posy) == t_bed)
   sleepy += 5;
+ else if (g->m.tr_at(posx, posy) == tr_cot)
+  sleepy += 4;
+ else if (g->m.tr_at(posx, posy) == tr_rollmat)
+  sleepy += 2;
  else if (g->m.ter(posx, posy) == t_floor)
   sleepy += 1;
  else

@@ -602,9 +602,9 @@ void construct::done_tree(game *g, point p)
 
 void construct::done_log(game *g, point p)
 {
- int num_planks = rng(10, 20);
- for (int i = 0; i < num_planks; i++)
-  g->m.add_item(p.x, p.y, g->itypes[itm_2x4], int(g->turn));
+ int num_logs = rng(3, 8);
+ for (int i = 0; i < num_logs; i++)
+  g->m.add_item(p.x, p.y, g->itypes[itm_log], int(g->turn));
 }
 
 void construct::done_vehicle(game *g, point p)

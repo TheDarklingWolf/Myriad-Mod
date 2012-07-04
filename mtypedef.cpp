@@ -82,9 +82,26 @@ FLAGS(MF_SEES, MF_HEARS, MF_SMELLS, MF_ANIMAL, MF_WARM, MF_FUR);
 ANGER(MTRIG_PLAYER_CLOSE);
 PLACATE(MTRIG_MEAT);
 
+// BURD
+mon("bird",	species_bird, 'b',	c_blue,	MS_TINY,	FLESH,
+//	frq dif agr mor spd msk mdi m## cut dge bsh cut itm  HP special freq
+	 12,   5,  -99, 15,150, 12,  2,  0,  4,  3,  0,  0,  0, 3,  50,
+	&mdeath::normal,	&mattack::burd, "\
+A relatively large bird"
+);
+FLAGS(MF_SEES, MF_HEARS, MF_ANIMAL, MF_FRIENDLY_SPECIAL);
+
+mon("bird",	species_mammal, 'd',	c_blue,	MS_TINY,	FLESH,
+//	frq dif agr mor spd msk mdi m## cut dge bsh cut itm  HP special freq
+	 1,   5,  -99, 15,150, 12,  2,  3,  10,  0,  0,  0,  0, 3,  50,
+	&mdeath::normal,	&mattack::disappear, "\
+This bird has been spooked, and is flying away."
+);
+FLAGS(MF_SEES, MF_HEARS, MF_ANIMAL, MF_FRIENDLY_SPECIAL);
+
 // DOMESICATED ANIMALS
 mon("dog",	species_mammal, 'd',	c_white,	MS_SMALL,	FLESH,
-//	frq dif agr mor spd msk mdi m## cut dge bsh cut itm  HP special freq
+//	frq dif agr mor spd msk mdi m## cut dge bsh cut itm, HP special freq
 	 1,   5,  2, 15,150, 12,  2,  3,  3,  3,  0,  0,  0, 25,  0,
 	&mdeath::normal,	&mattack::none, "\
 A medium-sized domesticated dog, gone feral."

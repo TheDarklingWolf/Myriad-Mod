@@ -806,7 +806,7 @@ MELEE("butter knife",	90,  15,';', c_ltcyan,	STEEL, 	MNULL,
 	 1,  2,  2,  1, -2, 0, "\
 A dull knife, absolutely worthless in combat.");
 
-MELEE("two by four", 	60,  80,'/', c_ltred,	WOOD,	MNULL,
+MELEE("wooden plank", 	60,  80,'/', c_ltred,	WOOD,	MNULL,
 	 6,  6, 14,  0,  1, 0, "\
 A plank of wood.  Makes a decent melee weapon, and can be used to board up\n\
 doors and windows if you have a hammer and nails.");
@@ -971,9 +971,10 @@ MELEE("candlestick",	20,100,'/', c_yellow,	SILVER,	MNULL,
 	 1,  5, 12,  0,  1,  0, "\
 A gold candlestick.");
 
-MELEE("log",            20,100,'/', c_brown,    WOOD,   MNULL,
-         20, 25, 20, 0, -5, 0, "\
-A relatively large and sturdy log, cut from a tree.");
+MELEE("log",                    20,  100,'/', c_brown,  WOOD,   MNULL,
+         40, 20, 10, 0, -10, 0, "\
+A large log, cut from a tree. Useful in building, or further\n\
+processing into planks.");
 
 MELEE("splintered wood", 	60,  80,'/', c_ltred,	WOOD,	MNULL,
 	 6,  6, 9,  0,  1, 0, "\
@@ -2843,7 +2844,7 @@ Use scissors to cut items made from cotton (mostly clothing) into rags.");
 
 TOOL("hammer",		35, 70, ';', c_brown,	IRON,	WOOD,
     2,  5, 17,  0,  1,   0,  0, 0,  0, AT_NULL, itm_null, &iuse::hammer, 0, "\
-Use a hammer, with nails and two by fours in your inventory, to board up\n\
+Use a hammer, with nails and wooden planks in your inventory, to board up\n\
 adjacent doors and windows.");
 
 //	NAME		RAR PRC	SYM  COLOR	MAT1	MAT
@@ -3263,6 +3264,18 @@ TOOL("entrenching tool",          0, 200,';', c_blue, STEEL, MNULL,
 This is a standard issue entrenching tool\n\
 It has a sharpened edge, making it an effective weapon as well as\n\
 digging tool"); 
+
+TOOL("cot",                       30, 300,';', c_green, STEEL, MNULL,
+        16, 6,   9, 0, -2, 0, 0, 0, 0,  AT_NULL, itm_null, &iuse::set_trap,
+0, "\
+A collapsable military style cot. Not exactly luxury, but better than\n\
+the ground, or a rollmat.");
+
+TOOL("rollmat",                   40, 200,';', c_blue,  PLASTIC, MNULL,
+        8, 2,    0, 0, 0, 0, 0, 0, 0,  AT_NULL, itm_null, &iuse::set_trap,
+0, "\
+A foam rollmat, compact and light.\n\
+It's better than sleeping on the hard ground, but not by very much.");
 // BIONICS
 // These are the modules used to install new bionics in the player.  They're
 // very simple and straightforward; a difficulty, followed by a NULL-terminated

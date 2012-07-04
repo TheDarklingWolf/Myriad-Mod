@@ -822,6 +822,16 @@ void mattack::formblob(game *g, monster *z)
  }
 }
 
+void mattack::burd(game *g, monster *z)
+{
+ int t;
+ if (!one_in(4) || !g->u_see(z, t))
+  return;
+
+ g->add_msg("The bird takes wing and begins flying away!");
+ z->poly(g->mtypes[mon_bird2]);
+}
+
 void mattack::dogthing(game *g, monster *z)
 {
  int t;

@@ -16,6 +16,7 @@ class mdeath;
 enum monster_species {
 species_none = 0,
 species_mammal,
+species_bird,
 species_insect,
 species_worm,
 species_zombie,
@@ -30,7 +31,7 @@ num_species
 enum mon_id {
 mon_null = 0,
 // Wildlife
-mon_squirrel, mon_rabbit, mon_deer, mon_wolf, mon_bear,
+mon_squirrel, mon_rabbit, mon_deer, mon_wolf, mon_bear, mon_bird, mon_bird2,
 // Friendly animals
 mon_dog,
 // Ants
