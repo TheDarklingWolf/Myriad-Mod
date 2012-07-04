@@ -2182,7 +2182,7 @@ void iuse::etool_c(game *g, player *p, item *it, bool t)
 {
 if (query_yn("Unfold your entrenching tool? This will take a few minutes")) {
 it->make(g->itypes[itm_e_tool]);
-p->moves -= 300;
+p->moves -= 3000;
 g->add_msg("You unfold the entrenching tool");
  } else {
 g->add_msg("Never mind.");
