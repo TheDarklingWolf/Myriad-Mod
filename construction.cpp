@@ -98,7 +98,7 @@ void game::init_construction()
   STAGE(t_wall_wood, 15);
    TOOL(itm_shovel, itm_e_tool, NULL);
    TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
-   COMP(itm_2x4, 20, itm_log, 4 NULL);
+   COMP(itm_2x4, 20, itm_log, 4, NULL);
    COMP(itm_nail, 20, NULL);
 
  CONSTRUCT("Build Window", 3, &construct::able_support,
