@@ -94,16 +94,16 @@ void game::init_construction()
    COMP(itm_2x4, 4, NULL);
    COMP(itm_nail, 8, NULL);
 
- CONSTRUCT("Build Wall", 2, &construct::able_empty, &construct::done_nothing);
-  STAGE(t_wall_half, 10);
-   TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
+ CONSTRUCT("Build Wall", 0, &construct::able_empty, &construct::done_nothing);
+  STAGE(t_wall_wood, 0);
+  /* TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
    COMP(itm_2x4, 10, NULL);
    COMP(itm_nail, 20, NULL);
   STAGE(t_wall_wood, 10);
    TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
    COMP(itm_2x4, 10, NULL);
    COMP(itm_nail, 20, NULL);
-
+*/
  CONSTRUCT("Build Window", 3, &construct::able_wall_wood,
                               &construct::done_nothing);
   STAGE(t_window_empty, 10);
@@ -542,13 +542,12 @@ bool construct::able_wall_wood(game *g, point p)
 
 bool construct::able_between_walls(game *g, point p)
 {
- bool fill[SEEX * MAPSIZE][SEEY * MAPSIZE];
- for (int x = 0; x < SEEX * MAPSIZE; x++) {
-  for (int y = 0; y < SEEY * MAPSIZE; y++)
-   fill[x][y] = false;
- }
-
- return (will_flood_stop(&(g->m), fill, p.x, p.y)); // See bottom of file
+ return (g->m.has_flag(support, p.x -1, p.y) && g->m.has_flag(support, p.x +1, p.y) ||
+         g->m.has_flag(support, p.x -1, p.y) && g->m.has_flag(support, p.x, p.y +1) ||
+         g->m.has_flag(support, p.x -1, p.y) && g->m.has_flag(support, p.x, p.y -1) ||
+         g->m.has_flag(support, p.x +1, p.y) && g->m.has_flag(support, p.x, p.y +1) ||
+         g->m.has_flag(support, p.x +1, p.y) && g->m.has_flag(support, p.x, p.y -1) ||
+         g->m.has_flag(support, p.x, p.y -1) && g->m.has_flag(support, p.x, p.y +1));
 }
 
 bool construct::able_dig(game *g, point p)
@@ -559,24 +558,6 @@ bool construct::able_dig(game *g, point p)
 bool construct::able_pit(game *g, point p)
 {
  return (g->m.ter(p.x, p.y) == t_pit);//|| g->m.ter(p.x, p.y) == t_pit_shallow);
-}
-
-bool will_flood_stop(map *m, bool fill[SEEX * MAPSIZE][SEEY * MAPSIZE],
-                     int x, int y)
-{
- if (x == 0 || y == 0 || x == SEEX * MAPSIZE - 1 || y == SEEY * MAPSIZE - 1)
-  return false;
-
- fill[x][y] = true;
- bool skip_north = (fill[x][y - 1] || m->has_flag(supports_roof, x, y - 1)),
-      skip_south = (fill[x][y + 1] || m->has_flag(supports_roof, x, y + 1)),
-      skip_east  = (fill[x + 1][y] || m->has_flag(supports_roof, x + 1, y)),
-      skip_west  = (fill[x - 1][y] || m->has_flag(supports_roof, x - 1, y));
-
- return ((skip_north || will_flood_stop(m, fill, x    , y - 1)) &&
-         (skip_east  || will_flood_stop(m, fill, x + 1, y    )) &&
-         (skip_south || will_flood_stop(m, fill, x    , y + 1)) &&
-         (skip_west  || will_flood_stop(m, fill, x - 1, y    ))   );
 }
 
 void construct::done_window_pane(game *g, point p)
