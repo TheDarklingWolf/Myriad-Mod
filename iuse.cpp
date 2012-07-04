@@ -2101,6 +2101,27 @@ void iuse::knife(game *g, player *p, item *it, bool t)
    else
     p->i_add(string);
   }
+ }
+ if (cut->type->id == itm_fur || cut->type->id == itm_leather) {
+  p->moves -= 150;
+  g->add_msg("You cut the pelt up into several cords");
+  item cord(g->itypes[itm_cord], int(g->turn), g->nextinv);
+  p->i_rem(ch);
+  bool drop = false;
+  for (int i = 0; i < 6; i++) {
+   int iter = 0;
+   while (p->has_item(cord.invlet)) {
+    cord.invlet = g->nextinv;
+    g->advance_nextinv();
+    iter++;
+   }
+   if (!drop && (iter == 52 || p->volume_carried() >= p->volume_capacity()))
+    drop = true;
+   if (drop)
+    g->m.add_item(p->posx, p->posy, cord);
+   else
+    p->i_add(cord);
+  }
   return;
  }
  if (!cut->made_of(COTTON)) {
@@ -2140,8 +2161,8 @@ void iuse::knife(game *g, player *p, item *it, bool t)
    g->m.add_item(p->posx, p->posy, rag);
   else
    p->i_add(rag);
+  }
  }
-}
 break;
 case 2:{
 char ch = g->inv("Chop up what?");

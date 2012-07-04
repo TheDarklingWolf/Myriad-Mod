@@ -58,9 +58,9 @@ void game::init_construction()
 
  CONSTRUCT("Fill Pit", 0, &construct::able_pit, &construct::done_nothing);
   STAGE(t_pit_shallow, 5);
-   TOOL(itm_shovel, NULL);
+   TOOL(itm_shovel, itm_e_tool, NULL);
   STAGE(t_dirt, 5);
-   TOOL(itm_shovel, NULL);
+   TOOL(itm_shovel, itm_e_tool, NULL);
 
  CONSTRUCT("Chop Down Tree", 0, &construct::able_tree, &construct::done_tree);
   STAGE(t_dirt, 10);
@@ -151,6 +151,15 @@ void game::init_construction()
    TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
    COMP(itm_log, 3, NULL);
    COMP(itm_nail, 20, NULL);
+
+// Household stuff
+ CONSTRUCT("Build Dresser", 2, &construct::able_indoors,
+                                &construct::done_nothing);
+  STAGE(t_dresser, 20);
+   TOOL(itm_saw, NULL);
+   TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
+   COMP(itm_nail, 8, NULL);
+   COMP(itm_2x4, 6, NULL);
 
  CONSTRUCT("Start vehicle construction", 0, &construct::able_empty, &construct::done_vehicle);
   STAGE(t_null, 10);
@@ -501,6 +510,11 @@ void game::complete_construction()
 bool construct::able_empty(game *g, point p)
 {
  return (g->m.move_cost(p.x, p.y) == 2);
+}
+
+bool construct::able_indoors(game *g, point p)
+{
+ return (g->m.ter(p.x, p.y) == t_floor);
 }
 
 bool construct::able_tree(game *g, point p)

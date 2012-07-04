@@ -994,6 +994,10 @@ MELEE("sharp rock",     40,  0, ';', c_ltgray,	STONE,	MNULL,
 	 1,  3, 4,  8,   -2, 0, "\
 A relatively sharp rock, so-so as a weapon");
 
+MELEE("cord",	        2,  5, ',', c_ltgray,	LEATHER,	MNULL,
+	 0,  0,-20,  0,  1, 0, "\
+A small length of sturdy cord.");
+
 //      NAME           RAR PRC SYM COLOR        MAT1    MAT2
 MELEE("steel frame",  25, 35, ',', c_cyan,  STEEL,   MNULL,
 //  VOL WGT DAM CUT HIT FLAGS

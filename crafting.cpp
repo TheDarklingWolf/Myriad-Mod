@@ -170,6 +170,8 @@ recipes.push_back( new recipe(id, result, category, skill1, skill2, difficulty,\
   COMP(itm_battery, 2, NULL);
   COMP(itm_power_supply, 1, NULL);
 
+// Survival Craft  1
+
  RECIPE(itm_sharp_rock, CC_SCRAFT1, sk_survival, sk_null, 0, 3000);
   TOOL(itm_rock, -1, NULL);
   COMP(itm_rock, 1, NULL);
@@ -180,7 +182,7 @@ recipes.push_back( new recipe(id, result, category, skill1, skill2, difficulty,\
   COMP(itm_fur, 1, NULL);
 
 /*
- * We need a some Chemicals which arn't implemented to realistically craft this!
+ * We need a some Chemicals which aren't implemented to realistically craft this!
 RECIPE(itm_c4, CC_WEAPON, sk_mechanics, sk_electronics, 4, 8000);
  TOOL(itm_screwdriver, -1, NULL);
  COMP(itm_can_food, 1, itm_steel_chunk, 1, itm_canister_empty, 1, NULL);
@@ -464,24 +466,24 @@ RECIPE(itm_c4, CC_WEAPON, sk_mechanics, sk_electronics, 4, 8000);
 // ARMOR
 
  RECIPE(itm_mocassins, CC_ARMOR, sk_tailor, sk_null, 1, 30000);
-  TOOL(itm_sewing_kit,  5, NULL);
-  COMP(itm_fur, 2, NULL);
+  TOOL(itm_sewing_kit,  10, NULL);
+  COMP(itm_fur, 4, NULL);
 
  RECIPE(itm_boots, CC_ARMOR, sk_tailor, sk_null, 2, 35000);
-  TOOL(itm_sewing_kit, 10, NULL);
-  COMP(itm_leather, 2, NULL);
+  TOOL(itm_sewing_kit, 20, NULL);
+  COMP(itm_leather, 6, NULL);
 
  RECIPE(itm_jeans, CC_ARMOR, sk_tailor, sk_null, 2, 45000);
   TOOL(itm_sewing_kit, 10, NULL);
-  COMP(itm_rag, 6, NULL);
+  COMP(itm_rag, 8, NULL);
 
  RECIPE(itm_pants_cargo, CC_ARMOR, sk_tailor, sk_null, 3, 48000);
   TOOL(itm_sewing_kit, 16, NULL);
-  COMP(itm_rag, 8, NULL);
+  COMP(itm_rag, 10, NULL);
 
  RECIPE(itm_pants_leather, CC_ARMOR, sk_tailor, sk_null, 4, 50000);
   TOOL(itm_sewing_kit, 10, NULL);
-  COMP(itm_leather, 6, NULL);
+  COMP(itm_leather, 8, NULL);
 
  RECIPE(itm_tank_top, CC_ARMOR, sk_tailor, sk_null, 2, 38000);
   TOOL(itm_sewing_kit, 4, NULL);
@@ -505,11 +507,11 @@ RECIPE(itm_c4, CC_WEAPON, sk_mechanics, sk_electronics, 4, 8000);
 
  RECIPE(itm_gloves_light, CC_ARMOR, sk_tailor, sk_null, 1, 10000);
   TOOL(itm_sewing_kit, 2, NULL);
-  COMP(itm_rag, 2, NULL);
+  COMP(itm_rag, 4, NULL);
 
  RECIPE(itm_gloves_fingerless, CC_ARMOR, sk_tailor, sk_null, 3, 16000);
   TOOL(itm_sewing_kit, 6, NULL);
-  COMP(itm_leather, 2, NULL);
+  COMP(itm_leather, 4, NULL);
 
  RECIPE(itm_mask_filter, CC_ARMOR, sk_mechanics, sk_tailor, 1, 5000);
   COMP(itm_bottle_plastic, 1, itm_bag_plastic, 2, NULL);

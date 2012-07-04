@@ -4220,6 +4220,25 @@ void game::examine()
    }
   }
   refresh_all();
+ } else if (m.ter(examx, examy) == t_wreckage && query_yn("Sift through wreckage?")) {
+  item pipe(itypes[itm_pipe], turn);
+  item chunk(itypes[itm_steel_chunk], turn);
+  item chain(itypes[itm_chain], turn);
+  u.moves -= 100;
+  m.ter(examx, examy) = t_dirtmound;
+  if (one_in(7)) {
+   int item = rng(1,9);
+    if (item <= 3) {
+   add_msg("You find a pipe!");
+   m.add_item(u.posx, u.posy, pipe);
+ } else if (item >= 4 && item <= 9) {
+   add_msg("You find a chunk of steel!");
+   m.add_item(u.posx, u.posy, chunk);
+ } else {
+   add_msg("You find a chain!");
+   m.add_item(u.posx, u.posy, chain);
+   }
+  }
  } else if (m.ter(examx, examy) == t_gas_pump && query_yn("Pump gas?")) {
   item gas(itypes[itm_gasoline], turn);
   if (one_in(u.dex_cur)) {
