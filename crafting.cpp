@@ -170,6 +170,15 @@ recipes.push_back( new recipe(id, result, category, skill1, skill2, difficulty,\
   COMP(itm_battery, 2, NULL);
   COMP(itm_power_supply, 1, NULL);
 
+ RECIPE(itm_sharp_rock, CC_SCRAFT1, sk_survival, sk_null, 0, 3000);
+  TOOL(itm_rock, -1, NULL);
+  COMP(itm_rock, 1, NULL);
+
+ RECIPE(itm_rock_knife, CC_SCRAFT1, sk_survival, sk_null, 0, 1000);
+  TOOL(itm_rock, -1, NULL);
+  COMP(itm_sharp_rock, 1, NULL);
+  COMP(itm_fur, 1, NULL);
+
 /*
  * We need a some Chemicals which arn't implemented to realistically craft this!
 RECIPE(itm_c4, CC_WEAPON, sk_mechanics, sk_electronics, 4, 8000);
@@ -956,6 +965,15 @@ void draw_recipe_tabs(WINDOW *w, craft_cat tab)
   for (int i = 5; i < 14; i++)
    mvwputch(w, 2, i, c_black, ' ');
   mvwprintz(w, 1, 6, h_ltgray, "WEAPONS");
+  mvwputch(w, 2,  4, c_ltgray, LINE_XOOX);
+  mvwputch(w, 2, 14, c_ltgray, LINE_XXOO);
+  mvwputch(w, 1,  2, h_ltgray, '<');
+  mvwputch(w, 1, 16, h_ltgray, '>');
+  break;
+ case CC_SCRAFT1:
+  for (int i = 5; i < 14; i++)
+   mvwputch(w, 2, i, c_black, ' ');
+  mvwprintz(w, 1, 5, h_ltgray, "SURV WEPS");
   mvwputch(w, 2,  4, c_ltgray, LINE_XOOX);
   mvwputch(w, 2, 14, c_ltgray, LINE_XXOO);
   mvwputch(w, 1,  2, h_ltgray, '<');

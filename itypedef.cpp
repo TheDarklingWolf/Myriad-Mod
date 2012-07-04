@@ -198,6 +198,10 @@ FOOD("cooked veggy",	 0, 70, c_green,	VEGGY,	itm_null,
     1,  2,  0, 40, 50,  0,  1,  0,  1,  0,	&iuse::none,	ADD_NULL, "\
 Freshly cooked vegetables.  Very nutritious.");
 
+FOOD("sinew",            0, 50, c_red,          FLESH,  itm_null,
+    1,  1,  0, 2, 80,   0, -1,  0,  1, -5,      &iuse::none, ADD_NULL, "\
+A stringy sinew, cut from a carcass, a decent string substitute.");
+
 //   NAME		RAR PRC	COLOR		MAT1	CONTAINER
 FOOD("apple",		70, 16,	c_red,		VEGGY,  itm_null,
 // VOL WGT QUE NUT SPO STM HTH ADD CHG FUN	 use_func    addiction type
@@ -983,6 +987,12 @@ A splintered piece of wood, useless as anything but kindling");
 MELEE("skewer",                 10,  10,',', c_brown,   WOOD,   MNULL,
          0,  1, 0,  0,  -10, 0, "\
 A thin wooden skewer. Squirrel on a stick, anyone?");
+
+//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
+MELEE("sharp rock",     40,  0, ';', c_ltgray,	STONE,	MNULL,
+//	VOL WGT DAM CUT HIT FLAGS
+	 1,  3, 4,  8,   -2, 0, "\
+A relatively sharp rock, so-so as a weapon");
 
 //      NAME           RAR PRC SYM COLOR        MAT1    MAT2
 MELEE("steel frame",  25, 35, ',', c_cyan,  STEEL,   MNULL,
@@ -3276,6 +3286,15 @@ TOOL("rollmat",                   40, 200,';', c_blue,  PLASTIC, MNULL,
 0, "\
 A foam rollmat, compact and light.\n\
 It's better than sleeping on the hard ground, but not by very much.");
+
+
+//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
+TOOL("rock knife",     40,  0, ';', c_ltgray,	STONE,	MNULL,
+//	VOL WGT DAM CUT HIT FLAGS
+	 1,  3, 4,  14,   -1, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::knife,
+0, "\
+A sharpened stone, with a handle wrapped in fur for better grip");
+
 // BIONICS
 // These are the modules used to install new bionics in the player.  They're
 // very simple and straightforward; a difficulty, followed by a NULL-terminated

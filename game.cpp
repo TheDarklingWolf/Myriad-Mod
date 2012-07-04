@@ -5314,19 +5314,23 @@ void game::complete_butcher(int index)
   add_msg("Your clumsy butchering destroys much of the meat!");
  else {
   itype* meat;
+  itype* sinew;
   if (corpse->has_flag(MF_POISON)) {
     if (corpse->mat == FLESH)
      meat = itypes[itm_meat_tainted];
     else
      meat = itypes[itm_veggy_tainted];
   } else {
-   if (corpse->mat == FLESH)
+   if (corpse->mat == FLESH) {
     meat = itypes[itm_meat];
-   else
+    sinew = itypes[itm_sinew];
+  } else
     meat = itypes[itm_veggy];
   }
   for (int i = 0; i < pieces; i++)
    m.add_item(u.posx, u.posy, meat, age);
+  for (int i = 0; i < pieces; i++)
+   m.add_item(u.posx, u.posy, sinew, age);
   add_msg("You butcher the corpse.");
  }
 }
