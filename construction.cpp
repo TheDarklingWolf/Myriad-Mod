@@ -94,35 +94,34 @@ void game::init_construction()
    COMP(itm_2x4, 4, NULL);
    COMP(itm_nail, 8, NULL);
 
- CONSTRUCT("Build Wall", 0, &construct::able_empty, &construct::done_nothing);
-  STAGE(t_wall_wood, 0);
-  /* TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
-   COMP(itm_2x4, 10, NULL);
-   COMP(itm_nail, 20, NULL);
-  STAGE(t_wall_wood, 10);
+ CONSTRUCT("Build Wall", 2, &construct::able_empty, &construct::done_nothing);
+  STAGE(t_wall_wood, 15);
+   TOOL(itm_shovel, itm_e_tool, NULL);
    TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
-   COMP(itm_2x4, 10, NULL);
+   COMP(itm_2x4, 20, itm_log, 4 NULL);
    COMP(itm_nail, 20, NULL);
-*/
- CONSTRUCT("Build Window", 3, &construct::able_wall_wood,
+
+ CONSTRUCT("Build Window", 3, &construct::able_support,
                               &construct::done_nothing);
   STAGE(t_window_empty, 10);
-   TOOL(itm_saw, NULL);
+   TOOL(itm_saw, itm_ax, NULL);
+   TOOL(itm_shovel, itm_e_tool, NULL);
+   COMP(itm_log, 2, itm_2x4, 10, NULL);
+   COMP(itm_nail, 20, NULL);
   STAGE(t_window, 5);
    COMP(itm_glass_sheet, 1, NULL);
 
- CONSTRUCT("Build Door", 4, &construct::able_wall_wood,
+ CONSTRUCT("Build Door", 4, &construct::able_support,
                               &construct::done_nothing);
   STAGE(t_door_frame, 15);
-   TOOL(itm_saw, NULL);
-  STAGE(t_door_b, 15);
-   TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
-   COMP(itm_2x4, 4, NULL);
-   COMP(itm_nail, 12, NULL);
+   TOOL(itm_saw, itm_ax, NULL);
+   COMP(itm_log, 2, itm_2x4, 10, NULL);
+   COMP(itm_nail, 20, NULL);
   STAGE(t_door_c, 15);
    TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
-   COMP(itm_2x4, 4, NULL);
+   COMP(itm_2x4, 8, NULL);
    COMP(itm_nail, 12, NULL);
+   COMP(itm_steel_chunk, 2, NULL);
 
 /*  Removed until we have some way of auto-aligning fences!
  CONSTRUCT("Build Fence", 1, 15, &construct::able_empty);
@@ -131,12 +130,21 @@ void game::init_construction()
    COMP(itm_2x4, 5, itm_nail, 8, NULL);
 */
 
- CONSTRUCT("Build Roof", 4, &construct::able_between_walls,
+ CONSTRUCT("Build Roof", 4, &construct::able_support,
                             &construct::done_nothing);
   STAGE(t_floor, 40);
    TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
    COMP(itm_2x4, 8, NULL);
    COMP(itm_nail, 40, NULL);
+
+ 
+ CONSTRUCT("Build Roof", 4, &construct::able_support,
+                            &construct::done_nothing);
+  STAGE(t_floor, 40);
+   TOOL(itm_ax, itm_saw, NULL);
+   TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
+   COMP(itm_log, 3, NULL);
+   COMP(itm_nail, 20, NULL);
 
  CONSTRUCT("Start vehicle construction", 0, &construct::able_empty, &construct::done_vehicle);
   STAGE(t_null, 10);
@@ -540,7 +548,7 @@ bool construct::able_wall_wood(game *g, point p)
  return (g->m.ter(p.x, p.y) == t_wall_wood);
 }
 
-bool construct::able_between_walls(game *g, point p)
+bool construct::able_support(game *g, point p)
 {
  return (g->m.has_flag(support, p.x -1, p.y) && g->m.has_flag(support, p.x +1, p.y) ||
          g->m.has_flag(support, p.x -1, p.y) && g->m.has_flag(support, p.x, p.y +1) ||
