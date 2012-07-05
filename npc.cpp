@@ -10,6 +10,11 @@
 #include "output.h"
 #include "line.h"
 
+#if (defined _WIN32 || defined WINDOWS)
+	#define LINES 25
+	#define COLS 80
+#endif
+
 std::vector<item> starting_clothes(npc_class type, bool male, game *g);
 std::vector<item> starting_inv(npc *me, npc_class type, game *g);
 
@@ -1232,13 +1237,13 @@ bool npc::wield(game *g, int index)
    debugmsg("npc::wield(%d) [styles.size() = %d]", index, styles.size());
    return false;
   }
-  weapon.make( g->itypes[styles[index]] );
   if (volume_carried() + weapon.volume() <= volume_capacity()) {
    i_add(remove_weapon());
    moves -= 15;
   } else // No room for weapon, so we drop it
    g->m.add_item(posx, posy, remove_weapon());
   moves -= 15;
+  weapon.make( g->itypes[styles[index]] );
   int linet;
   if (g->u_see(posx, posy, linet))
    g->add_msg("%s assumes a %s stance.", name.c_str(), weapon.tname().c_str());
@@ -1934,10 +1939,19 @@ int npc::speed_estimate(int speed)
  return rng(low, high);
 }
 
-void npc::draw(WINDOW* w, int ux, int uy, bool inv)
+void npc::draw(WINDOW* w, int ux, int uy, bool inv, view_mode vm, int xshift, int yshift)
 {
- int x = SEEX + posx - ux;
- int y = SEEY + posy - uy;
+ int ext_x_offset = 0;
+ int ext_y_offset = 0;
+ if(vm == EXTENDED){
+  ext_x_offset = EXTX;
+ }
+ else if(vm == DEBUG){
+  ext_x_offset = (COLS/2) - SEEX;
+  ext_y_offset = (LINES/2) - SEEY;
+ }
+ int x = SEEX + ext_x_offset + posx - (ux + xshift);
+ int y = SEEY + ext_y_offset + posy - (uy + yshift);
  nc_color col = c_pink;
  if (attitude == NPCATT_KILL)
   col = c_red;

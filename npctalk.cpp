@@ -737,7 +737,7 @@ std::vector<talk_response> gen_responses(talk_topic topic, game *g, npc *p)
   int shift = p->chatbin.tempvalue;
   bool more = trainable.size() + styles.size() - shift > 9;
   for (int i = shift; i < trainable.size() && printed < 9; i++) {
-   shift--;
+   // shift--;
    printed++;
    std::stringstream skilltext;
    skill trained = trainable[i];
@@ -750,7 +750,7 @@ std::vector<talk_response> gen_responses(talk_topic topic, game *g, npc *p)
   }
   if (shift < 0)
    shift = 0;
-  for (int i = shift; i < styles.size() && printed < 9; i++) {
+  for (int i = 0; i < styles.size() && printed < 9; i++) {
    printed++;
    SELECT_TEMP( g->itypes[styles[i]]->name + " (cost 800)",
                 0 - styles[i] );
@@ -1896,8 +1896,8 @@ Tab key to switch lists, letters to pick items, Enter to finalize, Esc to quit\n
   }
   g->u.practice(sk_barter, practice / 2);
   p->inv = newinv;
-  g->u.cash += cash;
-  p->cash   -= cash;
+  // g->u.cash += cash;
+  // p->cash   -= cash;
  }
  werase(w_head);
  werase(w_you);
