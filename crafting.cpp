@@ -181,6 +181,13 @@ recipes.push_back( new recipe(id, result, category, skill1, skill2, difficulty,\
   COMP(itm_sharp_rock, 1, NULL);
   COMP(itm_fur, 1, NULL);
 
+ RECIPE(itm_primitive_mace, CC_SCRAFT1, sk_survival, sk_null, 2, 5000);
+  TOOL(itm_knife_butcher, -1, itm_knife_steak, -1, itm_knife_combat, -1,
+       itm_rock_knife, -1, NULL);
+  COMP(itm_stick, 1, NULL);
+  COMP(itm_rock, 1, NULL);
+  COMP(itm_string_6, 1, itm_cord, 2, itm_wire, 1, NULL);
+
 /*
  * We need a some Chemicals which aren't implemented to realistically craft this!
 RECIPE(itm_c4, CC_WEAPON, sk_mechanics, sk_electronics, 4, 8000);

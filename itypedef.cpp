@@ -998,6 +998,16 @@ MELEE("cord",	        2,  5, ',', c_ltgray,	LEATHER,	MNULL,
 	 0,  0,-20,  0,  1, 0, "\
 A small length of sturdy cord.");
 
+MELEE("primitive mace",		20,10,'/',c_dkgray, WOOD,	STONE,
+	10, 18, 16,  0,  0, 0, "\
+A long stick with one end cut up and tied around a rock\n\
+a decent weapon.");
+TECH( mfb(TEC_SWEEP) );
+
+MELEE("wire",	40, 30, ',', c_ltgray,	STEEL,	MNULL,
+	 1,  0, -5,  0,  1, 0, "\
+A long piece of stiff wire, the type used in fences.");
+
 //      NAME           RAR PRC SYM COLOR        MAT1    MAT2
 MELEE("steel frame",  25, 35, ',', c_cyan,  STEEL,   MNULL,
 //  VOL WGT DAM CUT HIT FLAGS

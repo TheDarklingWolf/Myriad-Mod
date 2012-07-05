@@ -102,7 +102,6 @@ void game::init_construction()
 
  CONSTRUCT("Build Wall", 2, &construct::able_empty, &construct::done_nothing);
   STAGE(t_wall_wood, 15);
-   TOOL(itm_shovel, itm_e_tool, NULL);
    TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
    COMP(itm_2x4, 20, itm_log, 4, NULL);
    COMP(itm_nail, 20, NULL);
@@ -111,7 +110,6 @@ void game::init_construction()
                               &construct::done_nothing);
   STAGE(t_window_empty, 10);
    TOOL(itm_saw, itm_ax, NULL);
-   TOOL(itm_shovel, itm_e_tool, NULL);
    COMP(itm_log, 2, itm_2x4, 10, NULL);
    COMP(itm_nail, 20, NULL);
   STAGE(t_window, 5);

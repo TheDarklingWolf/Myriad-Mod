@@ -63,7 +63,8 @@ itm_wrapper, itm_syringe, itm_rag, itm_fur, itm_leather, itm_superglue,
  itm_canister_empty, itm_gold, itm_coal, itm_petrified_eye, itm_spiral_stone,
  itm_rapier, itm_cane, itm_binoculars, itm_usb_drive, itm_pike, itm_broadsword,
  itm_mace, itm_morningstar, itm_pool_cue, itm_pool_ball, itm_candlestick, itm_log,
- itm_splinter, itm_skewer, itm_sharp_rock, itm_cord,
+ itm_splinter, itm_skewer, itm_sharp_rock, itm_cord, itm_primitive_mace,
+ itm_wire, 
 // Vehicle parts
  itm_frame, itm_wheel, itm_big_wheel, itm_seat, itm_vehicle_controls,
  itm_combustion_small, itm_combustion, itm_combustion_large,
@@ -72,7 +73,7 @@ itm_wrapper, itm_syringe, itm_rag, itm_fur, itm_leather, itm_superglue,
  itm_steel_plate, itm_alloy_plate, itm_spiked_plate, itm_hard_plate,
 // Footwear
 itm_sneakers, itm_boots, itm_boots_steel, itm_boots_winter, itm_mocassins,
- itm_flip_flops, itm_dress_shoes, itm_heels, 
+ itm_flip_flops, itm_dress_shoes, itm_heels,
 // Legwear
 itm_jeans, itm_pants, itm_pants_leather, itm_pants_cargo, itm_pants_army,
  itm_skirt,
