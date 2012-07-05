@@ -258,7 +258,7 @@ const ter_t terlist[num_terrain_types] = {  // MUST match enum ter_id above!
 	mfb(bashable)|mfb(flammable)|mfb(noitem)},
 {"tree",	     '7', c_green,   0, tr_null,
 	mfb(flammable)|mfb(noitem)|mfb(support)},
-{"young tree",       '1', c_green,   0, tr_null,
+{"young tree",       '1', c_green,   3, tr_null,
 	mfb(transparent)|mfb(bashable)|mfb(flammable)|mfb(noitem)},
 {"underbrush",       '#', c_ltgreen, 6, tr_null,
 	mfb(transparent)|mfb(bashable)|mfb(diggable)|mfb(container)|mfb(rough)|
