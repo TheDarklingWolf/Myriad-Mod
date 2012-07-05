@@ -2247,6 +2247,40 @@ g->add_msg("You fold the entrenching tool up for storage");
 g->add_msg("Never mind.");
  }
 }
+
+void iuse::lumber(game *g, player *p, item *it, bool t)
+{
+ char ch = g->inv("Cut up what?");
+ item* cut = &(p->i_at(ch));
+ if (cut->type->id == 0) {
+  g->add_msg("You do not have that item!");
+  return;
+ }
+ if (cut->type->id == itm_log) {
+  p->moves -= 300;
+  g->add_msg("You cut the log into 5 planks.");
+  item plank(g->itypes[itm_2x4], int(g->turn), g->nextinv);
+  p->i_rem(ch);
+  bool drop = false;
+  for (int i = 0; i < 5; i++) {
+   int iter = 0;
+   while (p->has_item(plank.invlet)) {
+    plank.invlet = g->nextinv;
+    g->advance_nextinv();
+    iter++;
+   }
+   if (!drop && (iter == 52 || p->volume_carried() >= p->volume_capacity()))
+    drop = true;
+   if (drop)
+    g->m.add_item(p->posx, p->posy, plank);
+   else
+    p->i_add(plank);
+  }
+  return;
+  } else { g->add_msg("You can't cut that up!");
+ } return;
+}
+
 /* MACGUFFIN FUNCTIONS
  * These functions should refer to it->associated_mission for the particulars
  */

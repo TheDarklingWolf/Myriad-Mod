@@ -3301,7 +3301,7 @@ int player::butcher_factor()
  for (int i = 0; i < inv.size(); i++) {
   for (int j = 0; j < inv.stack_at(i).size(); j++) {
    item *cur_item = &(inv.stack_at(i)[j]);
-   if (cur_item->damage_cut() >= 6 && !cur_item->has_flag(IF_SPEAR)) {
+   if (cur_item->damage_cut() >= 7 && !cur_item->has_flag(IF_SPEAR)) {
     int factor = cur_item->volume() * 5 - cur_item->weight() * 1.5 -
                  cur_item->damage_cut();
     if (cur_item->damage_cut() <= 20)

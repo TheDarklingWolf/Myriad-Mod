@@ -202,10 +202,6 @@ FOOD("cooked veggy",	 0, 70, c_green,	VEGGY,	itm_null,
     1,  2,  0, 40, 50,  0,  1,  0,  1,  0,	&iuse::none,	ADD_NULL, "\
 Freshly cooked vegetables.  Very nutritious.");
 
-FOOD("sinew",            0, 50, c_red,          FLESH,  itm_null,
-    1,  1,  0, 2, 80,   0, -1,  0,  1, -5,      &iuse::none, ADD_NULL, "\
-A stringy sinew, cut from a carcass, a decent string substitute.");
-
 //   NAME		RAR PRC	COLOR		MAT1	CONTAINER
 FOOD("apple",		70, 16,	c_red,		VEGGY,  itm_null,
 // VOL WGT QUE NUT SPO STM HTH ADD CHG FUN	 use_func    addiction type
@@ -767,10 +763,6 @@ MELEE("wrench",		30, 86, ';', c_ltgray,	IRON,	MNULL,
 An adjustable wrench.  Makes a decent melee weapon, and is used in many\n\
 mechanics crafting recipes.");
 
-MELEE("wood saw",	15, 40, ';', c_cyan,	IRON,	WOOD,
-	 7,  3, -6,  1, -2, 0, "\
-A flimsy saw, useful for cutting through wood objects.");
-
 MELEE("hack saw",	17, 65, ';', c_ltcyan,	IRON,	MNULL,
 	 4,  2,  1,  1, -1, 0, "\
 A sturdy saw, useful for cutting through metal objects.");
@@ -785,12 +777,6 @@ MELEE("hatchet",	10,  95,';', c_ltgray,	IRON,	WOOD,
 	 6,  7, 12, 12,  1, 0, "\
 A one-handed hatchet.  Makes a great melee weapon, and is useful both for\n\
 cutting wood, and for use as a hammer.");
-
-//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
-MELEE("wood ax",	 8, 105,'/', c_ltgray,	WOOD,	IRON,
-//	VOL WGT DAM CUT HIT FLAGS
-	17, 15, 24, 18,  1, 0, "\
-A large two-handed axe.  Makes a good melee weapon, but is a bit slow.");
 
 MELEE("nail board",	 5,  80,'/', c_ltred,	WOOD,	MNULL,
 	 6,  6, 16,  6,  1, mfb(IF_STAB), "\
@@ -3277,7 +3263,7 @@ A sharp knife.  Makes a poor melee weapon, but is decent at butchering\n\
 corpses.");
 
 TOOL("butcher knife",	10,  80,';', c_cyan,	STEEL,	MNULL,
-	 3,  6,  4, 18, -3 ,0, 0, 0, 0, AT_NULL, itm_null, &iuse::knife, 0, "\
+	 3,  6,  4, 18, -3 ,0, 0, 0, 0, AT_NULL, itm_null, &iuse::none, 0, "\
 A sharp, heavy knife.  Makes a good melee weapon, and is the best item for\n\
 butchering corpses.");
 
@@ -3319,10 +3305,21 @@ It's better than sleeping on the hard ground, but not by very much.");
 //    NAME		RAR PRC SYM COLOR	MAT1	MAT2
 TOOL("rock knife",     40,  0, ';', c_ltgray,	STONE,	MNULL,
 //	VOL WGT DAM CUT HIT FLAGS
-	 1,  3, 4,  14,   -1, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::knife,
+	 1,  3, 4,  7,   -1, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::knife,
 0, "\
-A sharpened stone, with a handle wrapped in fur for better grip");
+A sharp stone with cloth or fur wrapped around the handle for grip.");
 
+TOOL("wood saw",	15, 40, ';', c_cyan,	IRON,	WOOD,
+	 7,  3, -6,  1, -2, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::lumber,
+0, "\
+A flimsy saw, useful for cutting through wood objects.");
+
+//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
+TOOL("wood ax",	 8, 105,'/', c_ltgray,	WOOD,	IRON,
+//	VOL WGT DAM CUT HIT FLAGS
+	17, 15, 24, 18,  1, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::lumber,
+0, "\
+A large two-handed axe.  Makes a good melee weapon, but is a bit slow.");
 // BIONICS
 // These are the modules used to install new bionics in the player.  They're
 // very simple and straightforward; a difficulty, followed by a NULL-terminated

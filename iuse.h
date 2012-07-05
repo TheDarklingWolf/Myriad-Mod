@@ -101,9 +101,7 @@ class iuse
   void knife            (game *g, player *p, item *it, bool t);
   void etool_c          (game *g, player *p, item *it, bool t);
   void etool            (game *g, player *p, item *it, bool t);
-  void cot              (game *g, player *p, item *it, bool t);
-  void rollmat          (game *g, player *p, item *it, bool t);
-  void tarp             (game *g, player *p, item *it, bool t);
+  void lumber           (game *g, player *p, item *it, bool t);
 // MACGUFFINS
   void mcg_note		(game *g, player *p, item *it, bool t);
 // ARTIFACTS

@@ -179,7 +179,7 @@ recipes.push_back( new recipe(id, result, category, skill1, skill2, difficulty,\
  RECIPE(itm_rock_knife, CC_SCRAFT1, sk_survival, sk_null, 0, 1000);
   TOOL(itm_rock, -1, NULL);
   COMP(itm_sharp_rock, 1, NULL);
-  COMP(itm_fur, 1, NULL);
+  COMP(itm_fur, 1, itm_rag, 1, NULL);
 
  RECIPE(itm_primitive_mace, CC_SCRAFT1, sk_survival, sk_null, 2, 5000);
   TOOL(itm_knife_butcher, -1, itm_knife_steak, -1, itm_knife_combat, -1,
