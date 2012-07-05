@@ -52,7 +52,7 @@ itm_bandages, itm_1st_aid, itm_vitamins, itm_aspirin, itm_caffeine,
 // Do-nothing / Melee weapons
 itm_wrapper, itm_syringe, itm_rag, itm_fur, itm_leather, itm_superglue,
  itm_id_science, itm_id_military, itm_electrohack, itm_string_6, itm_string_36,
- itm_rope_6, itm_rope_30, itm_chain, itm_processor, itm_RAM, itm_power_supply,
+ itm_rope_6, itm_rope_30, itm_ragrope, itm_chain, itm_processor, itm_RAM, itm_power_supply,
  itm_amplifier, itm_transponder, itm_receiver, itm_antenna, itm_steel_chunk,
  itm_steel_lump, itm_hose, itm_glass_sheet, itm_manhole_cover, itm_rock,
  itm_stick, itm_broom, itm_mop, itm_screwdriver, itm_wrench, itm_saw,

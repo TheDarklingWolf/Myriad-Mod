@@ -640,22 +640,32 @@ skill, it can be used to crack passwords and more.");
 
 MELEE("string - 6 in",	 2,  5, ',', c_ltgray,	COTTON,	MNULL,
 	 0,  0,-20,  0,  1, 0, "\
-A small piece of cotton string.");
+A small piece of string.");
 
 MELEE("string - 3 ft",	40, 30, ',', c_ltgray,	COTTON,	MNULL,
 	 1,  0, -5,  0,  1, 0, "\
-A long piece of cotton string.  Use scissors on it to cut it into smaller\n\
+A long piece of string.  Use scissors on it to cut it into smaller\n\
 pieces.");
 
 //    NAME		RAR PRC SYM COLOR	MAT1	MAT2
 MELEE("rope - 6 ft",	 4, 45, ',', c_yellow,	WOOD,	MNULL,
 //	VOL WGT DAM CUT HIT FLAGS
 	 2,  4,  1,  0,  1, mfb(IF_WRAP), "\
-A short piece of nylon rope.  Too small to be of much use.");
+A short piece of rope. Handy for some crafting, but not\n\
+much good for mountaineering. You could cut it into string\n\
+with a knife.");
 
 MELEE("rope - 30 ft",	35,100, ',', c_yellow,	WOOD,	MNULL,
 	10, 20,  1,  0, -10, 0, "\
-A long nylon rope.  Useful for keeping yourself safe from falls.");
+A long rope.  Useful for keeping yourself safe from falls\n\
+and if you had a knife, you could cut it into shorter\n\
+lengths.");
+
+//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
+MELEE("makeshift rope",	 4, 45, ',', c_yellow,	WOOD,	MNULL,
+//	VOL WGT DAM CUT HIT FLAGS
+	 2,  4,  1,  0,  1, mfb(IF_WRAP), "\
+Several rags, braided into an imitation of a rope");
 
 MELEE("steel chain",	20, 80, '/', c_cyan,	STEEL,	MNULL,
 	 4,  8, 12,  0,  2, mfb(IF_WRAP), "\

@@ -429,7 +429,8 @@ void game::init_mapitems()
 	itm_backpack, itm_battery, itm_novel_scifi, itm_novel_drama,
 	itm_manual_first_aid, itm_manual_tailor, itm_manual_carpentry,
 	itm_lighter, itm_sewing_kit, itm_hammer, itm_extinguisher,
-	itm_flashlight, itm_hotplate, itm_water_purifier, itm_radio, NULL);
+	itm_flashlight, itm_hotplate, itm_water_purifier, itm_radio,
+        itm_rope_30, itm_rollmat, NULL);
 
  setvector(
    mapitems[mi_chemistry],

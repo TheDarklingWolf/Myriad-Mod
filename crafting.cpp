@@ -559,6 +559,16 @@ RECIPE(itm_c4, CC_WEAPON, sk_mechanics, sk_electronics, 4, 8000);
   COMP(itm_rag, 20, itm_fur, 16, itm_leather, 12, NULL);
 
 // MISC
+ 
+ RECIPE(itm_ragrope,      CC_MISC, sk_null,    sk_null, 0, 5000);
+  TOOL(itm_knife_combat, -1, itm_knife_steak, -1, itm_scissors, -1, NULL);
+  COMP(itm_rag, 12, NULL);
+
+ RECIPE(itm_rope_6,    CC_MISC, sk_mechanics,    sk_null, 2, 5000);
+  COMP(itm_string_36, 6, NULL);
+
+ RECIPE(itm_rope_30,   CC_MISC, sk_mechanics, sk_null, 2, 5000);
+  COMP(itm_rope_6, 2, NULL);
 
  RECIPE(itm_superglue, CC_MISC, sk_cooking, sk_null, 2, 12000);
   TOOL(itm_hotplate, 5, itm_toolset, 3, itm_fire, -1, NULL);

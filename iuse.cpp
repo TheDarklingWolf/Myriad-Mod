@@ -2081,13 +2081,17 @@ void iuse::knife(game *g, player *p, item *it, bool t)
   g->add_msg("There's no point in cutting a rag.");
   return;
  }
- if (cut->type->id == itm_string_36) {
-  p->moves -= 150;
-  g->add_msg("You cut the string into 6 smaller pieces.");
-  item string(g->itypes[itm_string_6], int(g->turn), g->nextinv);
+ if (cut->type->id == itm_string_36 || cut->type->id == itm_rope_30) {
+  bool is_string = cut->type->id == itm_string_36;
+  int num_pieces = is_string ? 6 : 5;
+  p->moves -= is_string ? 150 : 300;
+  g->add_msg("You cut the %s into %d smaller pieces.", is_string 
+             ? "string" : "rope", num_pieces);
+  item string(g->itypes[is_string ?itm_string_6 : itm_rope_6], 
+              int(g->turn), g->nextinv);
   p->i_rem(ch);
   bool drop = false;
-  for (int i = 0; i < 6; i++) {
+  for (int i = 0; i < num_pieces; i++) {
    int iter = 0;
    while (p->has_item(string.invlet)) {
     string.invlet = g->nextinv;
@@ -2103,25 +2107,25 @@ void iuse::knife(game *g, player *p, item *it, bool t)
   }
  return;
  }
- if (cut->type->id == itm_rope_30) {
-  p->moves -= 300;
-  g->add_msg("You cut the rope into 5 smaller pieces.");
-  item rope(g->itypes[itm_rope_6], int(g->turn), g->nextinv);
+ if (cut->type->id == itm_rope_6) {
+  p->moves -= 150;
+  g->add_msg("You cut the rope in half and unbraid it into 6 pieces of string.");
+  item string(g->itypes[itm_string_36], int(g->turn), g->nextinv);
   p->i_rem(ch);
   bool drop = false;
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 6; i++) {
    int iter = 0;
-   while (p->has_item(rope.invlet)) {
-    rope.invlet = g->nextinv;
+   while (p->has_item(string.invlet)) {
+    string.invlet = g->nextinv;
     g->advance_nextinv();
     iter++;
    }
    if (!drop && (iter == 52 || p->volume_carried() >= p->volume_capacity()))
     drop = true;
    if (drop)
-    g->m.add_item(p->posx, p->posy, rope);
+    g->m.add_item(p->posx, p->posy, string);
    else
-    p->i_add(rope);
+    p->i_add(string);
   }
  return;
  }
