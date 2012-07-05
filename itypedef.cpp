@@ -61,6 +61,10 @@ DRINK("water",		90, 50,	c_ltcyan, itm_bottle_plastic,
 	50,  0,  0,  0,  0,  0,  1,  0,&iuse::none,	ADD_NULL, "\
 Water, the stuff of life, the best thirst-quencher available.");
 
+DRINK("boiled water",   0,  50, c_ltcyan,  itm_bottle_plastic,
+        25,  0,  0,  0,  0,  0,  1, -5,&iuse::none,     ADD_NULL, "\
+Boiled water, it doesn't taste great, but it's clean.");
+
 DRINK("sewage sample",	 5,  5, c_ltgreen, itm_bottle_plastic,
 	 5,  0,  0,  0,-10,  0,  1,-20,&iuse::sewage,	ADD_NULL, "\
 A sample of sewage from a treatment plant.  Gross.");
@@ -1530,11 +1534,11 @@ Provides more storage than any other piece of clothing.");
 //     NAME		RAR PRC	COLOR		MAT1		MAT2
 ARMOR("purse",		40,  75,C_STORE,	LEATHER,	MNULL,
 // VOL WGT DAM HIT ENC RES CUT ENV WRM STO	COVERS
-   10,  3,  2,  2,  3,  0,  0,  0,  0, 20,	mfb(bp_torso), "\
+   10,  3,  2,  2,  3,  0,  0,  0,  0, 15,	mfb(bp_torso), "\
 A bit encumbersome to wear, but provides lots of storage.");
 
 ARMOR("messenger bag",	20, 110,C_STORE,	PLASTIC,	MNULL,
-    8,  2,  1,  1,  3,  0,  0,  0,  0, 30,	mfb(bp_torso), "\
+    8,  2,  1,  1,  1,  0,  0,  0,  0, 30,	mfb(bp_torso), "\
 A bit encumbersome to wear, but provides lots of storage.");
 
 ARMOR("fanny pack", 	10, 100,C_STORE,	PLASTIC,	MNULL,
