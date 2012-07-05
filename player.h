@@ -29,6 +29,12 @@ struct special_attack
  special_attack() { bash = 0; cut = 0; stab = 0; };
 };
 
+#define NUM_FIRST_NAMES 100
+#define NUM_LAST_NAMES  100
+
+std::string random_first_name(bool male);
+std::string random_last_name();
+
 class player {
 public:
  player();
@@ -43,6 +49,8 @@ public:
  int  random_bad_trait ();
  void normalize(game *g);	// Starting set up of HP and inventory
 // </newcharacter.cpp>
+
+ void pick_name(); // Picks a name from NAMES_*
 
  virtual bool is_npc() { return false; }	// Overloaded for NPCs in npc.h
  nc_color color();				// What color to draw us as
