@@ -2101,6 +2101,29 @@ void iuse::knife(game *g, player *p, item *it, bool t)
    else
     p->i_add(string);
   }
+ return;
+ }
+ if (cut->type->id == itm_rope_30) {
+  p->moves -= 300;
+  g->add_msg("You cut the rope into 5 smaller pieces.");
+  item rope(g->itypes[itm_rope_6], int(g->turn), g->nextinv);
+  p->i_rem(ch);
+  bool drop = false;
+  for (int i = 0; i < 5; i++) {
+   int iter = 0;
+   while (p->has_item(rope.invlet)) {
+    rope.invlet = g->nextinv;
+    g->advance_nextinv();
+    iter++;
+   }
+   if (!drop && (iter == 52 || p->volume_carried() >= p->volume_capacity()))
+    drop = true;
+   if (drop)
+    g->m.add_item(p->posx, p->posy, rope);
+   else
+    p->i_add(rope);
+  }
+ return;
  }
  if (cut->type->id == itm_fur || cut->type->id == itm_leather) {
   p->moves -= 150;
