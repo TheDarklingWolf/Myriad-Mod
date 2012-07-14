@@ -35,7 +35,7 @@ void game::init_itypes ()
 // Fire - only appears in crafting recipes
  itypes.push_back(
   new itype(2, 0, 0, "nearby fire",
-            "Some fire -- if you are reading this it's a bug!",
+            "Some fire - if you are reading this it's a bug!",
             '$', c_red, MNULL, MNULL, 0, 0, 0, 0, 0, 0));
 // Integrated toolset - ditto
  itypes.push_back(
