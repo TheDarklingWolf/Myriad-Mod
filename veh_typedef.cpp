@@ -208,6 +208,30 @@ void game::init_vehicles()
     PART (-3, -2,   vp_wheel_large);
     PART (-3, 2,    vp_wheel_large);
 
+    //        name
+    VEHICLE ("zombine harvester");
+    //   ^^^
+    //   -o-
+    //    ^
+    //    #
+    //    o
+
+    //   dx, dy,    part_id
+    PART (0, 0,     vp_frame_v2);
+    PART (0, 0,     vp_seat);
+    PART (0, 0,     vp_controls);
+    PART (0, 0,     vp_engine_gas_small);
+    PART (1, 0,     vp_frame_handle);
+    PART (1, 0,     vp_fuel_tank_gas);
+    PART (2, 0,     vp_wheel);
+    PART (2, -1,    vp_frame_h);
+    PART (2, 1,     vp_frame_h);
+    PART (3, 0,     vp_lawnmower);
+    PART (3, -1,    vp_lawnmower);
+    PART (3, 1,     vp_lawnmower);
+    PART (-1, 0,    vp_wheel);
+    PART (-1, 0,    vp_cargo_box);
+
     if (vtypes.size() != num_vehicles)
         debugmsg("%d vehicles, %d types", vtypes.size(), num_vehicles);
 }

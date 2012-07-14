@@ -34,6 +34,7 @@ enum vpart_id
     vp_roof,
     vp_door,
     vp_window,
+    vp_lawnmower,
     vp_blade_h,
     vp_blade_v,
     vp_spike_h,
@@ -86,6 +87,7 @@ enum vpart_flags
     vpf_no_reinforce,       // can't reinforce this part with armor plates
     vpf_sharp,              // cutting damage instead of bashing
     vpf_unmount_on_damage,  // when damaged, part is unmounted, rather than broken
+    vpf_mower,              // gibs zombies
 
 // functional flags (only one of each can be mounted per tile)
     vpf_over,               // can be mounted over other part
@@ -182,6 +184,8 @@ const vpart_info vpart_list[num_vparts] =
         mfb(vpf_external) | mfb(vpf_obstacle) | mfb(vpf_openable) },
     { "windshield", '"', c_ltcyan,  '0', c_ltgray,  70,  50, 0, 0, itm_glass_sheet, 1,
         mfb(vpf_over) | mfb(vpf_obstacle) | mfb(vpf_no_reinforce) },
+    { "lawnmower",  'x', c_red,     'x', c_red,   250, 100, 0, 0, itm_lawnmower, 4,
+        mfb(vpf_external) | mfb(vpf_mower) | mfb(vpf_no_reinforce) },
     { "blade",      '-', c_white,   'x', c_white,   250, 100, 0, 0, itm_machete, 2,
         mfb(vpf_external) | mfb(vpf_unmount_on_damage) | mfb(vpf_sharp) | mfb(vpf_no_reinforce) },
     { "blade",      '|', c_white,   'x', c_white,   350, 100, 0, 0, itm_machete, 2,
@@ -259,6 +263,7 @@ enum vhtype_id
     veh_sandbike,
     veh_car,
     veh_truck,
+    veh_harvester,
 
     num_vehicles
 };

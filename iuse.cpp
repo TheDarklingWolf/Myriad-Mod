@@ -2285,6 +2285,68 @@ void iuse::lumber(game *g, player *p, item *it, bool t)
  } return;
 }
 
+//Antenna, Amplifier, Receiver. -- Radio
+// These next two are gonna be long. Very long. Search *BFNY* to skip past
+void iuse::screwdriver(game *g, player *p, item *it, bool t)
+{
+ char ch = g->inv("Disassemble what?");
+ item* cut = &(p->i_at(ch));
+ if (cut->type->id == 0) {
+  g->add_msg("You do not have that item!");
+  return;
+ }
+ if (cut->type->id == itm_radio) {
+  p->moves -= 150;
+  p->i_rem(ch);
+  g->add_msg("You disassemble the radio, placing the parts at your feet");
+  g->m.add_item(p->posx, p->posy, g->itypes[itm_antenna], 1);
+  g->m.add_item(p->posx, p->posy, g->itypes[itm_receiver], 1);
+  g->m.add_item(p->posx, p->posy, g->itypes[itm_amplifier], 1);
+  return;
+ } else if (cut->type->id == itm_two_way_radio) {
+  p->moves -= 150;
+  p->i_rem(ch);
+  g->add_msg("You disassemble the radio, placing the parts at your feet");;
+  g->m.add_item(p->posx, p->posy, g->itypes[itm_antenna], 1);
+  g->m.add_item(p->posx, p->posy, g->itypes[itm_receiver], 1);
+  g->m.add_item(p->posx, p->posy, g->itypes[itm_transponder], 1);
+  g->m.add_item(p->posx, p->posy, g->itypes[itm_amplifier], 1);
+  return;
+ } else if (cut->type->id == itm_goggles_nv) {
+  p->moves -= 150;
+  p->i_rem(ch);
+  g->add_msg("You disassemble the goggles, placing the parts at your feet");;
+  g->m.add_item(p->posx, p->posy, g->itypes[itm_amplifier], 3);
+  g->m.add_item(p->posx, p->posy, g->itypes[itm_power_supply], 1);
+ } else if (cut->type->id == itm_geiger_off) {
+  p->moves -= 150;
+  p->i_rem(ch);
+  g->add_msg("You disassemble the geiger counter, placing the parts at your feet");;
+  g->m.add_item(p->posx, p->posy, g->itypes[itm_amplifier], 2);
+  g->m.add_item(p->posx, p->posy, g->itypes[itm_power_supply], 1);
+ } else {
+  g->add_msg("You can't disassemble that with a screwdriver");
+ } return;
+}
+
+void iuse::wrench(game *g, player *p, item *it, bool t)
+{
+ char ch = g->inv("Disassemble what?");
+ item* cut = &(p->i_at(ch));
+ if (cut->type->id == 0) {
+  g->add_msg("You do not have that item!");
+  return;
+ }
+ if (cut->type->id == itm_lawnmower) {
+  p->moves -= 150;
+  p->i_rem(ch);
+  g->add_msg("You disassemble the lawnmower, wrenching the blades out");
+  g->m.add_item(p->posx, p->posy, g->itypes[itm_lawnmower_blade], 2);
+  return;
+ }
+}
+// *BFNY*
+
 /* MACGUFFIN FUNCTIONS
  * These functions should refer to it->associated_mission for the particulars
  */

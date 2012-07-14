@@ -194,7 +194,6 @@ void game::construction_menu()
  }
 
  do {
-<<<<<<< HEAD
 
 // Erase existing list of constructions
   for (int i = 1; i < 24; i++) {

@@ -1168,6 +1168,11 @@ int vehicle::part_collision (int vx, int vy, int part, int x, int y)
         if (dam < 0)
             dam = 0;
 
+        if (part_flag(part, vpf_mower)) {
+         g->sound(x, y, 10, "GTTTCHNK!");
+         if (z->hurt(60)) {
+          g->explode_mon(g->mon_at(x, y));
+        }}
         if (part_flag(part, vpf_sharp))
             parts[part].blood += (20 + dam) * 5;
         else

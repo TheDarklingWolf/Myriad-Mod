@@ -751,18 +751,6 @@ MELEE("mop",		20, 28, '/', c_ltblue,	PLASTIC,MNULL,
 An unwieldy mop.  Essentially useless.");
 TECH( mfb(TEC_WBLOCK_1) );
 
-MELEE("screwdriver",	40, 65, ';', c_ltcyan,	IRON,	PLASTIC,
-	 1,  1,  2,  8,  1, mfb(IF_SPEAR), "\
-A Philips-head screwdriver, important for almost all electronics crafting and\n\
-most mechanics crafting.");
-
-//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
-MELEE("wrench",		30, 86, ';', c_ltgray,	IRON,	MNULL,
-//	VOL WGT DAM CUT HIT FLAGS
-	 2,  5, 15,  0,  2, 0, "\
-An adjustable wrench.  Makes a decent melee weapon, and is used in many\n\
-mechanics crafting recipes.");
-
 MELEE("hack saw",	17, 65, ';', c_ltcyan,	IRON,	MNULL,
 	 4,  2,  1,  1, -1, 0, "\
 A sturdy saw, useful for cutting through metal objects.");
@@ -1007,6 +995,31 @@ TECH( mfb(TEC_SWEEP) );
 MELEE("wire",	40, 30, ',', c_ltgray,	STEEL,	MNULL,
 	 1,  0, -5,  0,  1, 0, "\
 A long piece of stiff wire, the type used in fences.");
+
+MELEE("spring", 50, 10, ',', c_ltgray,  STEEL,  MNULL,
+         3,  0, -1,  0,  0, 0, "\
+A large heavy duty spring. Expands with significant force\n\
+when compressed.");
+
+MELEE("lawnmower", 25, 100, ';', c_red, STEEL,  IRON,
+         10, 20, -3, 10, 0, 0, "\
+A motorized pushmower, it seems to be broken. You could\n\
+take it apart if you had a wrench.");
+
+MELEE("lawnmower blade", 0, 100, '/', c_ltgray, IRON, MNULL,
+	 7, 5,  4, 15,  -1, mfb(IF_STAB), "\
+The blade of a lawnmower. It's not incredibly sharp, but\n\
+it could still do some serious damage.");
+
+MELEE("lawnmower sword", 0, 100, '/', c_ltgray, IRON, MNULL,
+         7, 5,  4, 15,   1, mfb(IF_STAB), "\
+A lawnmower blade that's been fashioned into a makeshift\n\
+sword, mainly by adding a handle for easier wielding.");
+
+MELEE("lawnmower halberd", 0, 100, '/', c_ltgray, IRON, MNULL,
+         10, 7, 4, 15,   2, mfb(IF_STAB), "\
+A lawnmower blade affixed to a long stick, in the right\n\
+hands, this thing could do some massive damage.");
 
 //      NAME           RAR PRC SYM COLOR        MAT1    MAT2
 MELEE("steel frame",  25, 35, ']', c_cyan,  STEEL,   MNULL,
@@ -3320,6 +3333,29 @@ TOOL("wood ax",	 8, 105,'/', c_ltgray,	WOOD,	IRON,
 	17, 15, 24, 18,  1, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::lumber,
 0, "\
 A large two-handed axe.  Makes a good melee weapon, but is a bit slow.");
+
+TOOL("screwdriver",	40, 65, ';', c_ltcyan,	IRON,	PLASTIC,
+	 1,  1,  2,  8,  1, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::screwdriver,
+ mfb(IF_SPEAR), "\
+A Philips-head screwdriver, important for almost all electronics crafting and\n\
+most mechanics crafting. It's also useful in disassembling anything\n\
+held together with screws");
+
+//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
+TOOL("wrench",		30, 86, ';', c_ltgray,	IRON,	MNULL,
+//	VOL WGT DAM CUT HIT FLAGS
+	 2,  5, 15,  0,  2, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::none,
+0, "\
+An adjustable wrench.  Makes a decent melee weapon, and is used in many\n\
+mechanics crafting recipes. It's also useful in disassembling anything\n\
+held together with nuts.");
+
+TOOL("duct tape",         90, 100, ';', c_ltgray,PLASTIC, MNULL,
+// VOL WGT DAM CUT HIT MAX DEF  USE SEC   FUEL    REVERT    FUNCTION
+    1,  0,  1,  0, -1, 300,300,  0 ,0, AT_NULL, itm_null, &iuse::none,
+0, "\
+A roll of duct tape. Basically the most useful thing ever.");
+
 // BIONICS
 // These are the modules used to install new bionics in the player.  They're
 // very simple and straightforward; a difficulty, followed by a NULL-terminated
