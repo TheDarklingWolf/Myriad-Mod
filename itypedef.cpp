@@ -3344,7 +3344,7 @@ held together with screws");
 //    NAME		RAR PRC SYM COLOR	MAT1	MAT2
 TOOL("wrench",		30, 86, ';', c_ltgray,	IRON,	MNULL,
 //	VOL WGT DAM CUT HIT FLAGS
-	 2,  5, 15,  0,  2, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::none,
+	 2,  5, 15,  0,  2, 0, 0, 0, 0, AT_NULL, itm_null, &iuse::wrench,
 0, "\
 An adjustable wrench.  Makes a decent melee weapon, and is used in many\n\
 mechanics crafting recipes. It's also useful in disassembling anything\n\
