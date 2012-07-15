@@ -45,15 +45,9 @@ void game::init_construction()
  */
  CONSTRUCT("Dig Pit", 0, &construct::able_dig, &construct::done_nothing);
   STAGE(t_pit_shallow, 10);
-   TOOL(itm_shovel, NULL);
+   TOOL(itm_shovel, itm_e_tool, NULL);
   STAGE(t_pit, 10);
-   TOOL(itm_shovel, NULL);
-
- CONSTRUCT("Dig Pit", 0, &construct::able_dig, &construct::done_nothing);
-  STAGE(t_pit_shallow, 15);
-   TOOL(itm_e_tool, NULL);
-  STAGE(t_pit, 25);
-   TOOL(itm_e_tool, NULL);
+   TOOL(itm_shovel, itm_e_tool, NULL);
 
  CONSTRUCT("Spike Pit", 0, &construct::able_pit, &construct::done_nothing);
   STAGE(t_pit_spiked, 5);
