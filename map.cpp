@@ -1,4 +1,5 @@
 #include "map.h"
+#include "lightmap.h"
 #include "output.h"
 #include "rng.h"
 #include "game.h"
@@ -6,11 +7,6 @@
 #include <cmath>
 #include <stdlib.h>
 #include <fstream>
-
-#if (defined _WIN32 || defined WINDOWS)
-	#define LINES 25
-	#define COLS 80
-#endif
 
 #define SGN(a) (((a)<0) ? -1 : 1)
 #define INBOUNDS(x, y) \
@@ -694,8 +690,7 @@ bool map::is_outside(int x, int y)
          ter(x    , y + 1) != t_floor_wax &&
          ter(x + 1, y - 1) != t_floor_wax &&
          ter(x + 1, y    ) != t_floor_wax &&
-         ter(x + 1, y + 1) != t_floor_wax &&
-         ter(x    , y    ) != t_tarp);
+         ter(x + 1, y + 1) != t_floor_wax   );
  if (out) {
   int vpart;
   vehicle *veh = veh_at (x, y, vpart);
@@ -1801,60 +1796,47 @@ void map::debug()
  getch();
 }
 
-void map::draw(game *g, WINDOW* w, view_mode vm, int xshift, int yshift)
+void map::draw(game *g, WINDOW* w)
 {
+ int sight_range = g->u.sight_range(DAYLIGHT_LEVEL);
+ int max_sight_range = g->u.unimpaired_range();
+ int min_sight_range = g->u.sight_range(1);
+
  int t = 0;
- int ext_x_offset = 0;
- int ext_y_offset = 0;
- int xcoord, ycoord;
- if(vm == NORMAL){
-  xcoord = g->u.posx;
-  ycoord = g->u.posy;
- }
- else {
-  xcoord = g->u.posx + xshift;
-  ycoord = g->u.posy + yshift;
-  if(vm == EXTENDED){
-   ext_x_offset = EXTX;
-  }
-  else if(vm == DEBUG){
-   ext_x_offset = (COLS/2) - SEEX;
-   ext_y_offset = (LINES/2) - SEEY;
-  }
- }
- int light = g->u.sight_range(g->light_level());
- for  (int realx = xcoord - SEEX - ext_x_offset; realx <= xcoord + SEEX + ext_x_offset; realx++) {
-  for (int realy = ycoord - SEEY - ext_y_offset; realy <= ycoord + SEEY + ext_y_offset; realy++) {
+ for  (int realx = g->u.posx - SEEX; realx <= g->u.posx + SEEX; realx++) {
+  for (int realy = g->u.posy - SEEY; realy <= g->u.posy + SEEY; realy++) {
    int dist = rl_dist(g->u.posx, g->u.posy, realx, realy);
-   if (dist > light) {
+
+   bool can_see = sees(g->u.posx, g->u.posy, realx, realy, max_sight_range, t);
+   lit_level lit = g->lm.at(realx - g->u.posx, realy - g->u.posy);
+
+   if (dist > max_sight_range || !can_see ||
+       (dist > min_sight_range && lit == LL_DARK) ||
+       (dist > sight_range && g->u.sight_impaired() && lit != LL_BRIGHT)) {
     if (g->u.has_disease(DI_BOOMERED))
-     mvwputch(w, realy+SEEY + ext_y_offset - ycoord, realx+SEEX + ext_x_offset - xcoord, c_magenta,'#');
+   	 mvwputch(w, realy+SEEY - g->u.posy, realx+SEEX - g->u.posx, c_magenta, '#');
+   	else
+   	 mvwputch(w, realy+SEEY - g->u.posy, realx+SEEX - g->u.posx, c_dkgray, '#');
+   } else if (dist > sight_range && g->u.sight_impaired() && lit == LL_BRIGHT) {
+    if (g->u.has_disease(DI_BOOMERED))
+     mvwputch(w, realy+SEEY - g->u.posy, realx+SEEX - g->u.posx, c_pink, '#');
     else
-     mvwputch(w, realy+SEEY + ext_y_offset - ycoord, realx+SEEX + ext_x_offset - xcoord, c_dkgray, '#');
-   } else if (dist <= g->u.clairvoyance() ||
-              sees(g->u.posx, g->u.posy, realx, realy, light, t))
-    drawsq(w, g->u, realx, realy, false, true, vm, xshift, yshift);
+     mvwputch(w, realy+SEEY - g->u.posy, realx+SEEX - g->u.posx, c_ltgray, '#');
+   } else if (dist <= g->u.clairvoyance() || can_see)
+    drawsq(w, g->u, realx, realy, false, true, dist > min_sight_range &&
+           LL_LOW == lit, LL_BRIGHT == lit);
   }
  }
- mvwputch(w, g->u.posy + SEEY + ext_y_offset - ycoord, g->u.posx + SEEX + ext_x_offset - xcoord, g->u.color(), '@');
+ mvwputch(w, SEEY, SEEX, g->u.color(), '@');
 }
 
 void map::drawsq(WINDOW* w, player &u, int x, int y, bool invert,
-                 bool show_items, view_mode vm, int xshift, int yshift)
+                 bool show_items, bool low_light, bool bright_light)
 {
  if (!INBOUNDS(x, y))
   return;	// Out of bounds
- int ext_x_offset = 0;
- int ext_y_offset = 0;
- if(vm == EXTENDED){
-  ext_x_offset = EXTX;
- }
- else if(vm == DEBUG){
-  ext_x_offset = (COLS/2) - SEEX;
-  ext_y_offset = (LINES/2) - SEEY;
- }
- int k = x + SEEX + ext_x_offset - (u.posx + xshift);
- int j = y + SEEY + ext_y_offset - (u.posy + yshift);
+ int k = x + SEEX - u.posx;
+ int j = y + SEEY - u.posy;
  nc_color tercol;
  long sym = terlist[ter(x, y)].sym;
  bool hi = false;
@@ -1863,7 +1845,9 @@ void map::drawsq(WINDOW* w, player &u, int x, int y, bool invert,
   tercol = c_magenta;
  else if ((u.is_wearing(itm_goggles_nv) && u.has_active_item(itm_UPS_on)) ||
           u.has_active_bionic(bio_night_vision))
-  tercol = c_ltgreen;
+  tercol = (bright_light) ? c_white : c_ltgreen;
+ else if (low_light)
+  tercol = c_dkgray;
  else
  {
   normal_tercol = true;

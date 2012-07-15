@@ -14,11 +14,6 @@
 #include <dirent.h>
 #include <sys/stat.h>
 
-#if (defined _WIN32 || defined WINDOWS)
-	#define LINES 25
-	#define COLS 80
-#endif
-
 #define MAX_MONSTERS_MOVING 40 // Efficiency!
 
 void intro();
@@ -665,7 +660,7 @@ void game::update_skills()
 //	5	 256
 //	6	 128
 //	7+	  64
- for (int i = 0; i < num_skill_types; i++) { /*
+ for (int i = 0; i < num_skill_types; i++) {
   int tmp = u.sklevel[i] > 7 ? 7 : u.sklevel[i];
   if (u.sklevel[i] > 0 && turn % (8192 / int(pow(2, double(tmp - 1)))) == 0 &&
       (( u.has_trait(PF_FORGETFUL) && one_in(3)) ||
@@ -681,7 +676,7 @@ void game::update_skills()
    add_msg("Your skill in %s has reduced to %d!",
            skill_name(skill(i)).c_str(), u.sklevel[i]);
    u.skexercise[i] = 0;
-  } else*/ if (u.skexercise[i] >= 100) {
+  } else if (u.skexercise[i] >= 100) {
    u.sklevel[i]++;
    add_msg("Your skill in %s has increased to %d!",
            skill_name(skill(i)).c_str() ,u.sklevel[i]);
@@ -1260,10 +1255,6 @@ void game::get_input()
    look_around();
    break;
 
-  case ACTION_LOOK_SURROUNDINGS:
-   draw_surroundings(EXTENDED);
-   break;
-
   case ACTION_INVENTORY: {
    bool has = false;
    do {
@@ -1346,12 +1337,7 @@ void game::get_input()
    break;
 
   case ACTION_WAIT:
-   if (veh_ctrl) {
-    veh->turret_mode++;
-    if (veh->turret_mode > 1)
-     veh->turret_mode = 0;
-   } else
-    wait();
+   wait();
    break;
 
   case ACTION_CRAFT:
@@ -1367,8 +1353,9 @@ void game::get_input()
 
   case ACTION_SLEEP:
    if (veh_ctrl) {
-    veh->cruise_on = !veh->cruise_on;
-    add_msg("Cruise control turned %s.", veh->cruise_on? "on" : "off");
+    std::string message = veh->use_controls();
+    if (!message.empty())
+     add_msg(message.c_str());
    } else if (query_yn("Are you sure you want to sleep?")) {
     u.try_to_sleep(this);
     u.moves = 0;
@@ -1461,7 +1448,7 @@ void game::get_input()
    break;
 
   case ACTION_DISPLAY_SCENT:
-   debug2();
+   display_scent();
    break;
 
   case ACTION_TOGGLE_DEBUGMON:
@@ -1654,7 +1641,7 @@ bool game::load_master()
  return true;
 }
 
-bool game::load(std::string name)
+void game::load(std::string name)
 {
  std::ifstream fin;
  std::stringstream playerfile;
@@ -1663,7 +1650,7 @@ bool game::load(std::string name)
 // First, read in basic game state information.
  if (!fin.is_open()) {
   debugmsg("No save game exists!");
-  return false;
+  return;
  }
  u = player();
  u.name = name;
@@ -1744,8 +1731,6 @@ bool game::load(std::string name)
  load_master();
  set_adjacent_overmaps(true);
  draw();
-
- return true;
 }
 
 void game::save()
@@ -2028,25 +2013,6 @@ z.size(), events.size());
     full_screen_popup(data.str().c_str());
    }
   } break;
- }
- erase();
- refresh_all();
-}
-
-void game::debug2()
-{
- int action = menu("Debug Functions - Using these is CHEATING!",
-                   "Display scent map",       // 1
-                   "Full size extended view", // 2
-                   "Cancel",                  // 3
-                   NULL);
- switch (action) {
-  case 1:
-   display_scent();
-   break;
-  case 2:
-   draw_surroundings(DEBUG);
-   break;
  }
  erase();
  refresh_all();
@@ -2362,8 +2328,8 @@ void game::draw()
 {
  // Draw map
  werase(w_terrain);
- draw_ter(w_terrain);
- draw_footsteps(w_terrain);
+ draw_ter();
+ draw_footsteps();
  mon_info();
  // Draw Status
  draw_HP();
@@ -2410,172 +2376,53 @@ bool game::isBetween(int test, int down, int up)
 	else return false;
 }
 
-void game::draw_ter(WINDOW * w, view_mode vm, int xshift, int yshift)
+void game::draw_ter()
 {
  int t = 0;
- int ext_x_offset = 0;
- int ext_y_offset = 0;
- if(vm == EXTENDED){
-  ext_x_offset = EXTX;
- }
- else if(vm == DEBUG){
-  ext_x_offset = (COLS/2) - SEEX;
-  ext_y_offset = (LINES/2) - SEEY;
- }
-
- m.draw(this, w, vm, xshift, yshift);
+ lm.generate(this, m, u.posx, u.posy, natural_light_level(), u.active_light());
+ m.draw(this, w_terrain);
 
  // Draw monsters
  int distx, disty;
  for (int i = 0; i < z.size(); i++) {
   disty = abs(z[i].posy - u.posy);
   distx = abs(z[i].posx - u.posx);
-  if (distx <= SEEX + ext_x_offset && disty <= SEEY + ext_y_offset && u_see(&(z[i]), t))
-   z[i].draw(w, u.posx, u.posy, false, vm, xshift, yshift);
-  else if (z[i].has_flag(MF_WARM) && distx <= SEEX + ext_x_offset && disty <= SEEY + ext_y_offset &&
+  if (distx <= SEEX && disty <= SEEY && u_see(&(z[i]), t))
+   z[i].draw(w_terrain, u.posx, u.posy, false);
+  else if (z[i].has_flag(MF_WARM) && distx <= SEEX && disty <= SEEY &&
            (u.has_active_bionic(bio_infrared) || u.has_trait(PF_INFRARED)))
-   mvwputch(w, SEEY + ext_y_offset + z[i].posy - u.posy, SEEX + ext_x_offset + z[i].posx - u.posx,
+   mvwputch(w_terrain, SEEY + z[i].posy - u.posy, SEEX + z[i].posx - u.posx,
             c_red, '?');
  }
  // Draw NPCs
  for (int i = 0; i < active_npc.size(); i++) {
   disty = abs(active_npc[i].posy - u.posy);
   distx = abs(active_npc[i].posx - u.posx);
-  if (distx <= SEEX + ext_x_offset && disty <= SEEY + ext_y_offset &&
+  if (distx <= SEEX && disty <= SEEY &&
       u_see(active_npc[i].posx, active_npc[i].posy, t))
-   active_npc[i].draw(w, u.posx, u.posy, false, vm, xshift, yshift);
+   active_npc[i].draw(w_terrain, u.posx, u.posy, false);
  }
  if (u.has_active_bionic(bio_scent_vision)) {
-  for (int realx = u.posx - SEEX - ext_x_offset; realx <= u.posx + SEEX + ext_x_offset + 1; realx++) {
-   for (int realy = u.posy - SEEY - ext_y_offset; realy <= u.posy + SEEY + ext_y_offset + 1; realy++) {
+  for (int realx = u.posx - SEEX; realx <= u.posx + SEEX; realx++) {
+   for (int realy = u.posy - SEEY; realy <= u.posy + SEEY; realy++) {
     if (scent(realx, realy) != 0) {
      int tempx = u.posx - realx, tempy = u.posy - realy;
      if (!(isBetween(tempx, -2, 2) && isBetween(tempy, -2, 2))) {
       if (mon_at(realx, realy) != -1)
-       mvwputch(w, realy + SEEY + ext_y_offset - u.posy, realx + SEEX + ext_x_offset - u.posx,
+       mvwputch(w_terrain, realy + SEEY - u.posy, realx + SEEX - u.posx,
                 c_white, '?');
       else
-       mvwputch(w_terrain, realy + SEEY + ext_y_offset - u.posy, realx + SEEX + ext_x_offset - u.posx,
+       mvwputch(w_terrain, realy + SEEY - u.posy, realx + SEEX - u.posx,
                 c_magenta, '#');
      }
     }
    }
   }
  }
- wrefresh(w);
+ wrefresh(w_terrain);
  if (u.has_disease(DI_VISUALS))
   hallucinate();
 }
-
- void game::draw_surroundings(view_mode vm)
- {
-  char ch = 0;
-  int xshift = 0, yshift = 0, idx = 0;
-  action_id act, last_act;
-  WINDOW* w_extmap;
-  if(vm == EXTENDED){
-   w_extmap = newwin(25, 80, 0, 0);
-  }
-  else if(vm == DEBUG){
-   w_extmap = newwin(LINES, COLS, 0, 0);
-  }
-  act = ACTION_PAUSE;
-  last_act = ACTION_NULL;
-  do {
-   if(act != last_act || act == ACTION_LOOK_SURROUNDINGS){
-    wclear(w_extmap);
-    draw_ter(w_extmap, vm, xshift, yshift);
-    draw_footsteps(w_extmap, vm, true, xshift, yshift);
-    wrefresh(w_extmap);
-   }
-   ch = input();
-   if (keymap.find(ch) == keymap.end()) {
-    continue;
-   }
-   last_act = act;
-   act = keymap[ch];
-   if(act != last_act || act == ACTION_LOOK_SURROUNDINGS){
-    switch(act){
-     case ACTION_MOVE_N: //NORTH
-      xshift = 0;
-      yshift = -(SEEY - 1);
-      idx = 0;
-      break;
-     case ACTION_MOVE_S: //SOUTH
-      xshift = 0;
-      yshift = SEEY - 1;
-      idx = 0;
-      break;
-     case ACTION_MOVE_NW: //NORTHWEST
-      xshift = -(SEEX + EXTX - 15);
-      yshift = -(SEEY - 1);
-      idx = 0;
-      break;
-     case ACTION_MOVE_NE: //NORTHEAST
-      xshift = SEEX + EXTX - 15;
-      yshift = -(SEEY - 1);
-      idx = 0;
-      break;
-     case ACTION_MOVE_SW: //SOUTHWEST
-      xshift = -(SEEX + EXTX - 15);
-      yshift = SEEY - 1;
-      idx = 0;
-      break;
-     case ACTION_MOVE_SE: //SOUTHEAST
-      xshift = SEEX + EXTX - 15;
-      yshift = SEEY - 1;
-      idx = 0;
-      break;
-     case ACTION_MOVE_W: //WEST
-      xshift = -(SEEX + EXTX - 15);
-      yshift = 0;
-      idx = 0;
-      break;
-     case ACTION_MOVE_E: //EAST
-      xshift = SEEX + EXTX - 15;
-      yshift = 0;
-      idx = 0;
-      break;
-     case ACTION_PAUSE: //CENTERED
-      xshift = 0;
-      yshift = 0;
-      idx = 0;
-      break;
-     case ACTION_LOOK_SURROUNDINGS:
-      idx = (idx + 1) % 5;
-      switch(idx){
-       case 0: //Centered
-        xshift = 0;
-        yshift = 0;
-        break;
-       case 1: //NORTHWEST
-        xshift = -(SEEX + EXTX - 15);
-        yshift = -(SEEY - 1);
-        break;
-       case 2: //NORTHEAST
-        xshift = SEEX + EXTX - 15;
-        yshift = -(SEEY - 1);
-        break;
-       case 3: //SOUTHEAST
-        xshift = SEEX + EXTX - 15;
-        yshift = SEEY - 1;
-        break;
-       case 4: //SOUTHWEST
-        xshift = -(SEEX + EXTX - 15);
-        yshift = SEEY - 1;
-        break;
-      }
-      break;
-    }
-   }
-  } while (ch != ' ' && ch != KEY_ESCAPE && ch != '\n');
-  werase(w_extmap);
-  wrefresh(w_extmap);
-  delwin(w_extmap);
-  refresh_all();
- }
- 
-
 
 void game::refresh_all()
 {
@@ -2764,6 +2611,18 @@ void game::hallucinate()
  wrefresh(w_terrain);
 }
 
+float game::natural_light_level()
+{
+ float ret = 0;
+
+ if (levz >= 0) {
+  ret = turn.sunlight();
+  ret += weather_data[weather].light_modifier;
+ }
+
+ return std::max(0.0f, ret);
+}
+
 unsigned char game::light_level()
 {
  int ret;
@@ -2862,20 +2721,32 @@ faction* game::random_evil_faction()
 
 bool game::sees_u(int x, int y, int &t)
 {
+ // TODO: [lightmap] Apply default monster vison levels here
+ //                  the light map should deal lighting from player or fires
+ int range = light_level();
+
+ // doesn't matter if this actually reduces the range as we only need to look this far
+ if (lm.at(0, 0) >= LL_LOW)
+  range = rl_dist(x, y, u.posx, u.posy);
+
  return (!u.has_active_bionic(bio_cloak) &&
          !u.has_artifact_with(AEP_INVISIBLE) && 
-         m.sees(x, y, u.posx, u.posy, light_level(), t));
+         m.sees(x, y, u.posx, u.posy, range, t));
 }
 
 bool game::u_see(int x, int y, int &t)
 {
- int range = u.sight_range(light_level());
- if (u.has_artifact_with(AEP_CLAIRVOYANCE)) {
-  int crange = (range > u.clairvoyance() ? u.clairvoyance() : range);
-  if (rl_dist(u.posx, u.posy, x, y) <= crange)
-   return true;
- }
- return m.sees(u.posx, u.posy, x, y, range, t);
+ int wanted_range = rl_dist(u.posx, u.posy, x, y);
+
+ bool can_see = false;
+ if (wanted_range < u.clairvoyance())
+  can_see = true;
+ else if (wanted_range <= u.sight_range(1) ||
+          (wanted_range <= u.sight_range(DAYLIGHT_LEVEL) &&
+            lm.at(x - u.posx, y - u.posy) >= LL_LOW))
+  can_see = m.sees(u.posx, u.posy, x, y, wanted_range, t);
+
+ return can_see;
 }
 
 bool game::u_see(monster *mon, int &t)
@@ -2886,17 +2757,13 @@ bool game::u_see(monster *mon, int &t)
  if (mon->has_flag(MF_DIGS) && !u.has_active_bionic(bio_ground_sonar) &&
      dist > 1)
   return false;	// Can't see digging monsters until we're right next to them
- int range = u.sight_range(light_level());
- if (u.has_artifact_with(AEP_CLAIRVOYANCE)) {
-  int crange = (range > u.clairvoyance() ? u.clairvoyance() : range);
-  if (dist <= crange)
-   return true;
- }
- return m.sees(u.posx, u.posy, mon->posx, mon->posy, range, t);
+
+ return u_see(mon->posx, mon->posy, t);
 }
 
 bool game::pl_sees(player *p, monster *mon, int &t)
 {
+ // TODO: [lightmap] Allow npcs to use the lightmap
  if (mon->has_flag(MF_DIGS) && !p->has_active_bionic(bio_ground_sonar) &&
      rl_dist(p->posx, p->posy, mon->posx, mon->posy) > 1)
   return false;	// Can't see digging monsters until we're right next to them
@@ -3403,30 +3270,14 @@ void game::add_footstep(int x, int y, int volume, int distance)
 }
 
 // draws footsteps that have been created by monsters moving about
-void game::draw_footsteps(WINDOW *w, view_mode vm, bool hold, int xshift, int yshift)
+void game::draw_footsteps()
 {
- std::vector<point> fs;
- int ext_x_offset = 0;
- int ext_y_offset = 0;
- if (vm == EXTENDED){
-  ext_x_offset = EXTX;
-  fs = old_footsteps;
+ for (int i = 0; i < footsteps.size(); i++) {
+  mvwputch(w_terrain, SEEY + footsteps[i].y - u.posy, 
+           SEEX + footsteps[i].x - u.posx, c_yellow, '?');
  }
- else if (vm == DEBUG){
-  ext_x_offset = (COLS/2) - SEEX;
-  ext_y_offset = (LINES/2) - SEEY;
-  fs = old_footsteps;
- }
- else
-  fs = footsteps;
- for (int i = 0; i < fs.size(); i++) {
-  mvwputch(w, SEEY + ext_y_offset + fs[i].y - (u.posy + yshift),
-           SEEX + ext_x_offset + fs[i].x - (u.posx + xshift), c_yellow, '?');
- }
- if(!hold)
-  old_footsteps = footsteps;
  footsteps.clear();
- wrefresh(w);
+ wrefresh(w_terrain);
  return;
 }
 
@@ -4034,7 +3885,7 @@ bool game::pl_choose_vehicle (int &x, int &y)
  refresh_all();
  mvprintz(0, 0, c_red, "Choose a vehicle at direction:");
  int dirx, diry;
- get_direction(dirx, diry, input());
+ get_direction(this, dirx, diry, input());
  if (dirx == -2) {
   add_msg("Invalid direction!");
   return false;
@@ -4380,25 +4231,6 @@ void game::examine()
    }
   }
   refresh_all();
-} else if (m.ter(examx, examy) == t_wreckage && query_yn("Sift through wreckage?")) {
-  item pipe(itypes[itm_pipe], turn);
-  item chunk(itypes[itm_steel_chunk], turn);
-  item chain(itypes[itm_chain], turn);
-  u.moves -= 100;
-  m.ter(examx, examy) = t_dirtmound;
-  if (one_in(7)) {
-   int item = rng(1,9);
-    if (item <= 3) {
-   add_msg("You find a pipe!");
-   m.add_item(u.posx, u.posy, pipe);
- } else if (item >= 4 && item <= 9) {
-   add_msg("You find a chunk of steel!");
-   m.add_item(u.posx, u.posy, chunk);
- } else {
-   add_msg("You find a chain!");
-   m.add_item(u.posx, u.posy, chain);
-   }
-  }
  } else if (m.ter(examx, examy) == t_gas_pump && query_yn("Pump gas?")) {
   item gas(itypes[itm_gasoline], turn);
   if (one_in(u.dex_cur)) {
@@ -4539,7 +4371,7 @@ shape, but with long, twisted, distended limbs.");
 
 point game::look_around()
 {
- draw_ter(w_terrain);
+ draw_ter();
  int lx = u.posx, ly = u.posy;
  int mx, my, junk;
  char ch;
@@ -4554,7 +4386,7 @@ point game::look_around()
   ch = input();
   if (!u_see(lx, ly, junk))
    mvwputch(w_terrain, ly - u.posy + SEEY, lx - u.posx + SEEX, c_black, ' ');
-  draw_ter(w_terrain);
+  draw_ter();
   get_direction(this, mx, my, ch);
   if (mx != -2 && my != -2) {	// Directional key pressed
    lx += mx;
@@ -4626,7 +4458,15 @@ point game::look_around()
     veh->print_part_desc(w_look, 4, 48, veh_part);
     m.drawsq(w_terrain, u, lx, ly, true, true);
    }
-
+  } else if (u.sight_impaired() &&
+              lm.at(lx - u.posx, ly - u.posy) == LL_BRIGHT &&
+              rl_dist(u.posx, u.posy, lx, ly) < u.unimpaired_range() &&
+              m.sees(u.posx, u.posy, lx, ly, u.unimpaired_range(), junk)) {
+   if (u.has_disease(DI_BOOMERED))
+    mvwputch_inv(w_terrain, ly - u.posy + SEEY, lx - u.posx + SEEX, c_pink, '#');
+   else
+    mvwputch_inv(w_terrain, ly - u.posy + SEEY, lx - u.posx + SEEX, c_ltgray, '#');
+   mvwprintw(w_look, 1, 1, "Bright light.");
   } else {
    mvwputch(w_terrain, ly - u.posy + SEEY, lx - u.posx + SEEX, c_white, 'x');
    mvwprintw(w_look, 1, 1, "Unseen.");
@@ -5276,6 +5116,8 @@ void game::plthrow()
   return;
  }
 
+ // TODO: [lightmap] This appears to redraw the screen for throwing,
+ //                  check were lightmap needs to be shown
  int sight_range = u.sight_range(light_level());
  if (range < sight_range)
   range = sight_range;
@@ -5361,6 +5203,8 @@ void game::plfire(bool burst)
 
  int junk;
  int range = u.weapon.range(&u);
+ // TODO: [lightmap] This appears to redraw the screen for fireing,
+ //                  check were lightmap needs to be shown
  int sight_range = u.sight_range(light_level());
  if (range > sight_range)
   range = sight_range;
@@ -6056,7 +5900,7 @@ void game::plmove(int x, int y)
     bool wall = false;
     for (int wallx = x - 1; wallx <= x + 1 && !wall; wallx++) {
      for (int wally = y - 1; wally <= y + 1 && !wall; wally++) {
-      if (m.has_flag(support, wallx, wally))
+      if (m.has_flag(supports_roof, wallx, wally))
        wall = true;
      }
     }
@@ -6391,7 +6235,6 @@ void game::vertical_move(int movez, bool force)
 
 // Figure out where we know there are up/down connectors
  std::vector<point> discover;
- if (!force) discover.push_back(om_location());
  for (int x = 0; x < OMAPX; x++) {
   for (int y = 0; y < OMAPY; y++) {
    if (cur_om.seen(x, y) &&
@@ -6711,14 +6554,6 @@ point game::om_location()
  ret.x = int( (levx + int(MAPSIZE / 2)) / 2);
  ret.y = int( (levy + int(MAPSIZE / 2)) / 2);
  return ret;
-}
-
-point game::global_location()
-{
-  point ret;
-  ret.x = cur_om.posx*OMAPX + om_location().x;
-  ret.y = cur_om.posy*OMAPY + om_location().y;
-  return ret;
 }
 
 void game::replace_stair_monsters()
@@ -7108,7 +6943,7 @@ nc_color sev(int a)
 void game::display_scent()
 {
  int div = query_int("Sensitivity");
- draw_ter(w_terrain);
+ draw_ter();
  for (int x = u.posx - SEEX; x <= u.posx + SEEX; x++) {
   for (int y = u.posy - SEEY; y <= u.posy + SEEY; y++) {
    int sn = scent(x, y) / (div * 2);

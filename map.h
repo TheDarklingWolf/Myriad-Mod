@@ -35,10 +35,10 @@ class map
  ~map();
 
 // Visual Output
- void draw(game *g, WINDOW* w, view_mode vm = NORMAL, int xshift = 0, int yshift = 0);
+ void draw(game *g, WINDOW* w);
  void debug();
  void drawsq(WINDOW* w, player &u, int x, int y, bool invert, bool show_items,
-             view_mode vm = NORMAL, int xshift = 0, int yshift = 0);
+             bool low_light = false, bool bright_level = false);
 
 // File I/O
  virtual void save(overmap *om, unsigned int turn, int x, int y);
