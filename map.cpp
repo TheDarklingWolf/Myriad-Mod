@@ -56,6 +56,35 @@ map::~map()
 {
 }
 
+vehicle_list map::get_vehicles(int sx, int sy, int ex, int ey)
+{
+ int chunk_sx = (sx / SEEX) - 1;
+ int chunk_ex = (ex / SEEX) + 1;
+
+ int chunk_sy = (sy / SEEY) - 1;
+ int chunk_ey = (ey / SEEY) + 1;
+
+ vehicle_list vehs;
+
+ for(int cx = chunk_sx; cx <= chunk_ex; ++cx) {
+  for(int cy = chunk_sy; cy <= chunk_ey; ++cy) {
+   int nonant = cx + cy * my_MAPSIZE;
+   if (nonant < 0 || nonant >= my_MAPSIZE * my_MAPSIZE)
+    continue; // out of grid
+
+   for(int i = 0; i < grid[nonant].vehicles.size(); ++i) {
+    wrapped_vehicle w;
+    w.item = &(grid[nonant].vehicles[i]);
+    w.x = w.item->posx + cx * SEEX;
+    w.y = w.item->posy + cy * SEEY;
+    vehs.push_back(w);
+   }
+  }
+ }
+
+ return vehs;
+}
+
 vehicle* map::veh_at(int x, int y, int &part_num)
 {
  if (!inbounds(x, y))
@@ -1798,33 +1827,42 @@ void map::debug()
 
 void map::draw(game *g, WINDOW* w)
 {
- int sight_range = g->u.sight_range(DAYLIGHT_LEVEL);
+ int natural_sight_range = g->u.sight_range(1);
+ int light_sight_range = g->u.sight_range(g->light_level());
+ int lowlight_sight_range = std::max(g->light_level() / 2, natural_sight_range);
  int max_sight_range = g->u.unimpaired_range();
- int min_sight_range = g->u.sight_range(1);
 
  int t = 0;
  for  (int realx = g->u.posx - SEEX; realx <= g->u.posx + SEEX; realx++) {
   for (int realy = g->u.posy - SEEY; realy <= g->u.posy + SEEY; realy++) {
    int dist = rl_dist(g->u.posx, g->u.posy, realx, realy);
+   int sight_range = light_sight_range;
+
+   // While viewing indoor areas use lightmap model
+   if (!is_outside(realx, realy))
+    sight_range = natural_sight_range;
 
    bool can_see = sees(g->u.posx, g->u.posy, realx, realy, max_sight_range, t);
    lit_level lit = g->lm.at(realx - g->u.posx, realy - g->u.posy);
 
-   if (dist > max_sight_range || !can_see ||
-       (dist > min_sight_range && lit == LL_DARK) ||
-       (dist > sight_range && g->u.sight_impaired() && lit != LL_BRIGHT)) {
+   if (dist > max_sight_range ||
+       (dist > light_sight_range &&
+         (lit == LL_DARK ||
+         (g->u.sight_impaired() && lit != LL_BRIGHT)))) {
     if (g->u.has_disease(DI_BOOMERED))
    	 mvwputch(w, realy+SEEY - g->u.posy, realx+SEEX - g->u.posx, c_magenta, '#');
    	else
    	 mvwputch(w, realy+SEEY - g->u.posy, realx+SEEX - g->u.posx, c_dkgray, '#');
-   } else if (dist > sight_range && g->u.sight_impaired() && lit == LL_BRIGHT) {
+   } else if (dist > light_sight_range && g->u.sight_impaired() && lit == LL_BRIGHT) {
     if (g->u.has_disease(DI_BOOMERED))
      mvwputch(w, realy+SEEY - g->u.posy, realx+SEEX - g->u.posx, c_pink, '#');
     else
      mvwputch(w, realy+SEEY - g->u.posy, realx+SEEX - g->u.posx, c_ltgray, '#');
    } else if (dist <= g->u.clairvoyance() || can_see)
-    drawsq(w, g->u, realx, realy, false, true, dist > min_sight_range &&
-           LL_LOW == lit, LL_BRIGHT == lit);
+    drawsq(w, g->u, realx, realy, false, true,
+           (dist > lowlight_sight_range && LL_LIT > lit) ||
+           (dist > sight_range && LL_LOW == lit),
+           LL_BRIGHT == lit);
   }
  }
  mvwputch(w, SEEY, SEEX, g->u.color(), '@');
