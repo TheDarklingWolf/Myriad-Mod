@@ -665,7 +665,7 @@ void game::update_skills()
 //	5	 256
 //	6	 128
 //	7+	  64
- for (int i = 0; i < num_skill_types; i++) {
+ for (int i = 0; i < num_skill_types; i++) { /*
   int tmp = u.sklevel[i] > 7 ? 7 : u.sklevel[i];
   if (u.sklevel[i] > 0 && turn % (8192 / int(pow(2, double(tmp - 1)))) == 0 &&
       (( u.has_trait(PF_FORGETFUL) && one_in(3)) ||
@@ -681,7 +681,7 @@ void game::update_skills()
    add_msg("Your skill in %s has reduced to %d!",
            skill_name(skill(i)).c_str(), u.sklevel[i]);
    u.skexercise[i] = 0;
-  } else if (u.skexercise[i] >= 100) {
+  } else*/ if (u.skexercise[i] >= 100) {
    u.sklevel[i]++;
    add_msg("Your skill in %s has increased to %d!",
            skill_name(skill(i)).c_str() ,u.sklevel[i]);

@@ -1631,7 +1631,14 @@ int vehicle::damage_direct (int p, int dmg, int type)
             }
         }
         else
-        if (parts[p].hp <= 0 && part_flag(p, vpf_unmount_on_damage))
+        if (parts[p].hp <= 0 && part_flag(p, vpf_mower))
+        {
+         g->m.add_item (global_x() + parts[p].precalc_dx[0],
+                        global_y() + parts[p].precalc_dy[0],
+                        g->itypes[itm_lawnmower_blade], g->turn);
+            remove_part (p);
+        }
+        else if (parts[p].hp <= 0 && part_flag(p, vpf_unmount_on_damage))
         {
             g->m.add_item (global_x() + parts[p].precalc_dx[0], 
                            global_y() + parts[p].precalc_dy[0], 
