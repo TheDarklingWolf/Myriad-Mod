@@ -410,6 +410,7 @@ void game::init_mapitems()
 	itm_SICP, itm_textbook_robots, itm_extinguisher, itm_radio,
 	itm_chainsaw_off, itm_jackhammer, itm_ring, itm_necklace, itm_usb_drive,
 	itm_broadsword, itm_morningstar, itm_helmet_plate, itm_e_tool_c, itm_rollmat,
+        itm_glowstick, itm_flare,
 	NULL);
 
  setvector(
@@ -418,7 +419,8 @@ void game::init_mapitems()
 	itm_mag_guns, itm_manual_brawl, itm_manual_knives,
 	itm_manual_mechanics, itm_manual_first_aid, itm_manual_traps,
 	itm_flashlight, itm_water_purifier, itm_two_way_radio, itm_radio,
-	itm_geiger_off, itm_usb_drive, itm_e_tool_c, itm_cot, itm_rollmat, NULL);
+	itm_geiger_off, itm_usb_drive, itm_e_tool_c, itm_cot, itm_rollmat,
+        itm_glowstick, itm_flare, NULL);
 
  setvector(
    mapitems[mi_shelter],
@@ -431,7 +433,7 @@ void game::init_mapitems()
 	itm_manual_first_aid, itm_manual_tailor, itm_manual_carpentry,
 	itm_lighter, itm_sewing_kit, itm_hammer, itm_extinguisher,
 	itm_flashlight, itm_hotplate, itm_water_purifier, itm_radio,
-        itm_rope_30, itm_rollmat, NULL);
+        itm_rope_30, itm_rollmat, itm_glowstick, NULL);
 
  setvector(
    mapitems[mi_chemistry],
@@ -558,7 +560,7 @@ void game::init_mapitems()
 	itm_bottle_plastic, itm_lighter, itm_sewing_kit, itm_extinguisher,
 	itm_flashlight, itm_crowbar, itm_chainsaw_off, itm_beartrap,
 	itm_grenade, itm_EMPbomb, itm_hotplate, itm_UPS_off, itm_rollmat,
-        itm_cot, NULL);
+        itm_cot, itm_glowstick, itm_flare, NULL);
 
  setvector(
    mapitems[mi_sewage_plant],
@@ -570,7 +572,7 @@ void game::init_mapitems()
 
  setvector(
    mapitems[mi_mine_storage],
-	itm_rock, itm_coal, NULL);
+	itm_rock, itm_coal, itm_flare, NULL);
 
  setvector(
    mapitems[mi_mine_equipment],
@@ -579,7 +581,7 @@ void game::init_mapitems()
 	itm_glasses_safety, itm_goggles_welding, itm_goggles_nv, itm_hat_hard,
 	itm_backpack, itm_battery, itm_flashlight, itm_two_way_radio,
 	itm_jackhammer, itm_dynamite, itm_UPS_off, itm_bionics_tools,
-	itm_bionics_construction, NULL);
+	itm_bionics_construction, itm_flare, itm_glowstick, NULL);
 
  setvector(
    mapitems[mi_spiral],
@@ -608,11 +610,11 @@ void game::init_mapitems()
 
  setvector(
    mapitems[mi_sewer],
-	itm_mutagen, itm_fetus, itm_weed, itm_mag_porn, itm_rag, NULL);
+	itm_mutagen, itm_fetus, itm_weed, itm_mag_porn, itm_rag, itm_glowstick, NULL);
 
  setvector(
    mapitems[mi_cavern],
-	itm_rock, itm_jackhammer, itm_flashlight, itm_dynamite, NULL);
+	itm_rock, itm_jackhammer, itm_flashlight, itm_dynamite, itm_flare, NULL);
 
  setvector(
    mapitems[mi_spider],

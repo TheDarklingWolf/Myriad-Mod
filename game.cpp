@@ -2645,6 +2645,10 @@ unsigned char game::light_level()
   if (ret > 10)
    ret = 10;
  }
+ if (ret < 4 && u.has_active_item(itm_glowstick_lit))
+  ret = 4;
+ if (ret < 8 && u.has_active_item(itm_flare_lit))
+  ret = 8;
  if (ret < 8 && u.has_active_bionic(bio_flashlight))
   ret = 8;
  if (ret < 4 && u.has_artifact_with(AEP_GLOW))
