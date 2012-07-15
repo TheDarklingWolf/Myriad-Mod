@@ -148,13 +148,36 @@ void game::init_construction()
    COMP(itm_nail, 20, NULL);
 
 // Household stuff
- CONSTRUCT("Build Dresser", 2, &construct::able_indoors,
+ CONSTRUCT("Build Dresser", 1, &construct::able_indoors,
                                 &construct::done_nothing);
   STAGE(t_dresser, 20);
    TOOL(itm_saw, NULL);
    TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
    COMP(itm_nail, 8, NULL);
    COMP(itm_2x4, 6, NULL);
+
+ CONSTRUCT("Build Bookcase", 1, &construct::able_indoors,
+                                &construct::done_nothing);
+  STAGE(t_bookcase, 20);
+   TOOL(itm_saw, NULL);
+   TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
+   COMP(itm_nail, 16, NULL);
+   COMP(itm_2x4, 12, NULL);
+
+ CONSTRUCT("Build Counter", 0, &construct::able_indoors,
+                                &construct::done_nothing);
+  STAGE(t_counter, 20);
+   TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
+   COMP(itm_nail, 8, NULL);
+   COMP(itm_2x4, 6, NULL);
+
+ CONSTRUCT("Build Makeshift Bed", 0, &construct::able_indoors,
+                                &construct::done_nothing);
+  STAGE(t_crap_bed, 20);
+   TOOL(itm_hammer, itm_hatchet, itm_nailgun, NULL);
+   COMP(itm_nail, 8, NULL);
+   COMP(itm_2x4, 10, NULL);
+   COMP(itm_rag, 10, NULL);
 
  CONSTRUCT("Start vehicle construction", 0, &construct::able_empty, &construct::done_vehicle);
   STAGE(t_null, 10);

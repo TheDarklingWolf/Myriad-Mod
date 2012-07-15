@@ -941,6 +941,61 @@ bool map::bash(int x, int y, int str, std::string &sound, int *res)
   }
   break;
 
+ case t_bed:
+ case t_crap_bed:
+  result = dice(3, 45);
+  if (res) *res = result;
+  if (str >= result) {
+   sound += "smash!";
+   ter(x, y) = t_floor;
+   int num_boards = rng(4, 8);
+   for (int i = 0; i < num_boards; i++)
+    add_item(x, y, (*itypes)[itm_2x4], 0);
+   int num_rags = rng(6, 12);
+   for (int i = 0; i < num_rags; i++)
+    add_item(x, y, (*itypes)[itm_rag], 0);
+   return true;
+  } else {
+   sound += "whump.";
+   return true;
+  }
+  break;
+
+ case t_rack:
+  result = dice(3, 45);
+  if (res) *res = result;
+  if (str >= result) {
+   sound += "smash!";
+   ter(x, y) = t_floor;
+   int num_chunks = rng(4, 8);
+   for (int i = 0; i < num_chunks; i++)
+    add_item(x, y, (*itypes)[itm_steel_chunk], 0);
+   int num_pipes = rng(0, 4);
+   for (int i = 0; i < num_pipes; i++)
+    add_item(x, y, (*itypes)[itm_pipe], 0);
+   return true;
+  } else {
+   sound += "whump.";
+   return true;
+  }
+  break;
+
+ case t_counter:
+  result = dice(3, 45);
+  if (res) *res = result;
+  if (str >= result) {
+   sound += "smash!";
+   ter(x, y) = t_floor;
+   int num_boards = rng(2, 6);
+   for (int i = 0; i < num_boards; i++)
+    add_item(x, y, (*itypes)[itm_2x4], 0);
+   return true;
+  } else {
+   sound += "whump.";
+   return true;
+  }
+  break;
+
  case t_dresser:
  case t_bookcase:
   result = dice(3, 45);

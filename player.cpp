@@ -4316,7 +4316,8 @@ void player::try_to_sleep(game *g)
 {
  if (g->m.ter(posx, posy) == t_bed)
   g->add_msg("This bed is a comfortable place to sleep.");
- if (g->m.tr_at(posx, posy) == tr_rollmat || g->m.tr_at(posx, posy) == tr_cot)
+ if (g->m.tr_at(posx, posy) == tr_rollmat || g->m.tr_at(posx, posy) == tr_cot ||
+     g->m.ter(posx, posy) == t_crap_bed)
   g->add_msg("You lay down to rest, better than the ground, at least.");
  int vpart = -1;
  vehicle *veh = g->m.veh_at (posx, posy, vpart);
@@ -4343,7 +4344,7 @@ bool player::can_sleep(game *g)
   sleepy += 4;
  else if (g->m.ter(posx, posy) == t_bed)
   sleepy += 5;
- else if (g->m.tr_at(posx, posy) == tr_cot)
+ else if (g->m.tr_at(posx, posy) == tr_cot || g->m.ter(posx, posy) == t_crap_bed)
   sleepy += 4;
  else if (g->m.tr_at(posx, posy) == tr_rollmat)
   sleepy += 2;
