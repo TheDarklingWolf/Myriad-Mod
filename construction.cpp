@@ -40,6 +40,9 @@ void game::init_construction()
  *  items after a deconstruction.
  */
 
+ CONSTRUCT("Wreckage",0, &construct::able_empty, &construct::done_nothing);
+  STAGE(t_wreckage, 0);
+ 
  CONSTRUCT("Dig Pit", 0, &construct::able_dig, &construct::done_nothing);
   STAGE(t_pit_shallow, 10);
    TOOL(itm_shovel, NULL);

@@ -82,6 +82,14 @@ void light_map::generate(game* g, map& m, int x, int y, float natural_light, flo
    if(m.ter(sx, sy) == t_floor_l)
     apply_light_source(c, sx, sy, x, y, 1);
 
+   if (m.i_at(sx, sy).size() != 0 &&
+       m.i_at(sx, sy)[0].type->id == itm_flare_lit)
+    apply_light_source(c, sx, sy, x, y, 75);
+
+   if (m.i_at(sx, sy).size() != 0 &&
+       m.i_at(sx, sy)[0].type->id == itm_glowstick_lit)
+    apply_light_source(c, sx, sy, x, y, 15);
+
    if(m.ter(sx, sy) == t_lava)
     apply_light_source(c, sx, sy, x, y, 50);
 

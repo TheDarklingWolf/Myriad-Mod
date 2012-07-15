@@ -2345,6 +2345,18 @@ void iuse::wrench(game *g, player *p, item *it, bool t)
   return;
  }
 }
+
+void iuse::flare(game *g, player *p, item *it, bool t)
+{
+  it->make(g->itypes[itm_flare_lit]);
+  it->active = true;
+}
+
+void iuse::glowstick(game *g, player *p, item *it, bool t)
+{
+  it->make(g->itypes[itm_glowstick_lit]);
+  it->active = true;
+}
 // *BFNY*
 
 /* MACGUFFIN FUNCTIONS

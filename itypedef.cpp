@@ -3356,6 +3356,31 @@ TOOL("duct tape",         90, 100, ';', c_ltgray,PLASTIC, MNULL,
 0, "\
 A roll of duct tape. Basically the most useful thing ever.");
 
+//	NAME		RAR VAL	SYM  COLOR	MAT1	MAT
+TOOL("flare",		 3, 400,'*', c_red,	PLASTIC,MNULL,
+// VOL WGT DAM CUT HIT MAX DEF USE SEC FUEL	REVERT	  FUNCTION
+    1,  1, 10,  0, -1,  100,  100,  0,  0, AT_NULL, itm_null, &iuse::flare,0,"\
+Use this flare to light it, it can then be thrown to light u an area");
+
+//	NAME		RAR VAL	SYM  COLOR	MAT1	MAT
+TOOL("flare (lit)",      3, 400,'*', c_red,	PLASTIC,MNULL,
+// VOL WGT DAM CUT HIT MAX DEF USE SEC FUEL	REVERT	  FUNCTION
+    1,  1, 10,  0, -1, 100,100, 0, 15, AT_NULL, itm_null, &iuse::none,0,"\
+This flare is lit.");
+
+//	NAME		RAR VAL	SYM  COLOR	MAT1	MAT
+TOOL("glowstick",      3, 400,'*', c_green,	PLASTIC,MNULL,
+// VOL WGT DAM CUT HIT MAX DEF USE SEC FUEL	REVERT	  FUNCTION
+    1,  1, 0,  0, -1, 100,100, 0, 0, AT_NULL, itm_null, &iuse::glowstick,0,"\
+Use this glowstick to crack it, it provides some light");
+
+//	NAME		RAR VAL	SYM  COLOR	MAT1	MAT
+TOOL("glowstick (lit)",      3, 400,'*', c_green,	PLASTIC,MNULL,
+// VOL WGT DAM CUT HIT MAX DEF USE SEC FUEL	REVERT	  FUNCTION
+    1,  1, 0,  0, -1, 100,100, 0, 15, AT_NULL, itm_null, &iuse::glowstick,0,"\
+Use this glowstick to crack it, it provides some light");
+
+
 // BIONICS
 // These are the modules used to install new bionics in the player.  They're
 // very simple and straightforward; a difficulty, followed by a NULL-terminated
