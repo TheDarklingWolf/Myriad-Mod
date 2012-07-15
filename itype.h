@@ -22,7 +22,7 @@ enum itype_id {
 itm_null = 0,
 itm_corpse,
 // Special pseudoitems
-itm_fire, itm_toolset,
+itm_fire, itm_toolset, itm_forge, itm_crucible_fake, itm_anvil_fake,
 // Drinks
 itm_water, itm_boiled_water, itm_sewage, itm_salt_water, itm_oj, itm_apple_cider,
  itm_energy_drink, itm_cola, itm_rootbeer, itm_milk, itm_V8, itm_broth,
@@ -65,7 +65,7 @@ itm_wrapper, itm_syringe, itm_rag, itm_fur, itm_leather, itm_superglue,
  itm_mace, itm_morningstar, itm_pool_cue, itm_pool_ball, itm_candlestick, itm_log,
  itm_splinter, itm_skewer, itm_sharp_rock, itm_cord, itm_primitive_mace,
  itm_wire, itm_spring, itm_lawnmower, itm_lawnmower_blade, itm_lawnmower_sword,
- itm_lawnmower_halberd,
+ itm_lawnmower_halberd, itm_crucible, itm_anvil, itm_charcoal, itm_clay,
 // Vehicle parts
  itm_frame, itm_wheel, itm_big_wheel, itm_seat, itm_vehicle_controls,
  itm_combustion_small, itm_combustion, itm_combustion_large,

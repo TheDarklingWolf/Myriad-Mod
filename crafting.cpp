@@ -567,8 +567,39 @@ RECIPE(itm_c4, CC_WEAPON, sk_mechanics, sk_electronics, 4, 8000);
   TOOL(itm_sewing_kit, 20, NULL);
   COMP(itm_rag, 20, itm_fur, 16, itm_leather, 12, NULL);
 
+
+// SMITHING
+ RECIPE(itm_steel_lump,   CC_SMITH, sk_smithing, sk_null, 0,10000);
+  TOOL(itm_hammer, -1, NULL);
+  TOOL(itm_crucible_fake, -1, NULL);
+  TOOL(itm_anvil_fake, -1, NULL);
+  TOOL(itm_forge, -1, NULL);
+  TOOL(itm_lighter, 1, NULL);
+  COMP(itm_charcoal, 3, NULL);
+  COMP(itm_steel_chunk, 6, itm_pipe, 4, itm_chain, 3, itm_pot, 2, itm_pan, 2, NULL);
+
+ RECIPE(itm_steel_chunk,  CC_SMITH, sk_smithing, sk_null, 0, 10000);
+  TOOL(itm_hammer, -1, NULL);
+  TOOL(itm_crucible_fake, -1, NULL);
+  TOOL(itm_anvil_fake, -1, NULL);
+  TOOL(itm_forge, -1, NULL);
+  TOOL(itm_lighter, 1, NULL);
+  COMP(itm_charcoal, 2, NULL);
+  COMP(itm_knife_butter, 6, itm_knife_steak, 2, itm_knife_butcher, 1,
+       itm_wire, 2, itm_nail, 50, itm_ax, 1, itm_saw, 1, itm_scissors, 3,
+       NULL);
 // MISC
  
+ RECIPE(itm_crucible,     CC_MISC, sk_smithing, sk_null, 0, 10000);
+  TOOL(itm_knife_combat, -1, itm_knife_steak, -1, itm_scissors, -1, NULL);
+  TOOL(itm_fire, -1, NULL);
+  COMP(itm_clay, 5, NULL);
+
+ RECIPE(itm_anvil,        CC_MISC, sk_smithing, sk_null, 0, 20000);
+  TOOL(itm_crucible_fake, -1, NULL);
+  COMP(itm_charcoal, 5, NULL);
+  COMP(itm_steel_chunk, 6, itm_pipe, 4, itm_chain, 3, itm_steel_lump, 1, NULL);
+
  RECIPE(itm_ragrope,      CC_MISC, sk_null,    sk_null, 0, 5000);
   TOOL(itm_knife_combat, -1, itm_knife_steak, -1, itm_scissors, -1, NULL);
   COMP(itm_rag, 12, NULL);
@@ -1033,6 +1064,15 @@ void draw_recipe_tabs(WINDOW *w, craft_cat tab)
   mvwputch(w, 2, 61, c_ltgray, LINE_XXOO);
   mvwputch(w, 1, 51, h_ltgray, '<');
   mvwputch(w, 1, 63, h_ltgray, '>');
+  break;
+ case CC_SMITH:
+  for (int i = 68; i < 74; i++)
+   mvwputch(w, 2, i, c_black, ' ');
+  mvwprintz(w, 1, 69, h_ltgray, "MTLWORK");
+  mvwputch(w, 2, 67, c_ltgray, LINE_XOOX);
+  mvwputch(w, 2, 74, c_ltgray, LINE_XXOO);
+  mvwputch(w, 1, 65, h_ltgray, '<');
+  mvwputch(w, 1, 76, h_ltgray, '>');
   break;
  case CC_MISC:
   for (int i = 68; i < 74; i++)

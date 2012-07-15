@@ -47,6 +47,8 @@ std::string skill_name(int sk)
   return "survival";
  case sk_traps:
   return "traps";
+ case sk_smithing:
+  return "metalworking";
  case sk_tailor:
   return "tailoring";
  case sk_firstaid:
@@ -167,6 +169,10 @@ poison from tainted meat. Also used for skinning corpses to acquire pelts.";
 Your skill at setting and disarming traps safely and effectively. Note that\n\
 this does not help you detect traps, or avoid their effects if you activate\n\
 them.";
+ case sk_smithing:
+  return "\
+Your skill at crafting items utilizing the age old art of smithery. This\n\
+ability allows you to make many items using a forge and anvil.";
  case sk_tailor:
   return "\
 Your skill at repairing clothing, and at higher levels, creating clothing\n\

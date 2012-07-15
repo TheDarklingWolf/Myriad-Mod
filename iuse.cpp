@@ -1172,8 +1172,7 @@ void iuse::makemound(game *g, player *p, item *it, bool t)
 
 void iuse::dig(game *g, player *p, item *it, bool t)
 {
- g->add_msg("You can dig a pit via the construction menu--hit *");
-/*
+
  int dirx, diry;
  g->draw();
  mvprintw(0, 0, "Dig where?");
@@ -1182,16 +1181,18 @@ void iuse::dig(game *g, player *p, item *it, bool t)
   g->add_msg("Invalid direction.");
   return;
  }
- if (g->m.has_flag(diggable, p->posx + dirx, p->posy + diry)) {
+ if (g->m.ter(dirx, diry) == t_claydirt || g->m.ter(dirx, diry) == t_claygrass) {
   p->moves -= 300;
-  g->add_msg("You dig a pit.");
-  g->m.ter     (p->posx + dirx, p->posy + diry) = t_pit;
-  g->m.add_trap(p->posx + dirx, p->posy + diry, tr_pit);
-  p->practice(sk_traps, 1);
+  g->add_msg("You prospect for clay.");
+  g->m.ter     (p->posx + dirx, p->posy + diry) = t_dirt;
+  if (one_in(4)) {
+  g->add_msg("You find some clay");
+   int clay = rng(1, 5);
+ for (int i = 0; i < clay; i++)
+  g->m.add_item(dirx, diry, g->itypes[itm_clay], int(g->turn));
  } else
-  g->add_msg("You can't dig through %s!",
-             g->m.tername(p->posx + dirx, p->posy + diry).c_str());
-*/
+  g->add_msg("You don't find any clay.");
+ }
 }
 
 void iuse::chainsaw_off(game *g, player *p, item *it, bool t)

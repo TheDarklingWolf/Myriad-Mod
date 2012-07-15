@@ -42,7 +42,22 @@ void game::init_itypes ()
   new itype(3, 0, 0, "integrated toolset",
             "A fake item.  If you are reading this it's a bug!",
             '$', c_red, MNULL, MNULL, 0, 0, 0, 0, 0, 0));
- int index = 3;
+
+ itypes.push_back(
+  new itype(4, 0, 0, "forge",
+            "A fake item.  If you are reading this it's a bug!",
+            '$', c_red, MNULL, MNULL, 0, 0, 0, 0, 0, 0));
+
+ itypes.push_back(
+  new itype(5, 0, 0, "emplaced crucible",
+            "A fake item.  If you are reading this it's a bug!",
+            '$', c_red, MNULL, MNULL, 0, 0, 0, 0, 0, 0));
+
+ itypes.push_back(
+  new itype(6, 0, 0, "emplaced anvil",
+            "A fake item.  If you are reading this it's a bug!",
+            '$', c_red, MNULL, MNULL, 0, 0, 0, 0, 0, 0));
+ int index = 6;
  
 // Drinks
 // Stim should be -8 to 8.
@@ -1002,7 +1017,7 @@ A large heavy duty spring. Expands with significant force\n\
 when compressed.");
 
 MELEE("lawnmower", 25, 100, ';', c_red, STEEL,  IRON,
-         10, 20, -3, 10, 0, 0, "\
+         25, 40, -3, 10, 0, 0, "\
 A motorized pushmower, it seems to be broken. You could\n\
 take it apart if you had a wrench.");
 
@@ -1021,6 +1036,25 @@ MELEE("lawnmower halberd", 0, 100, '/', c_ltgray, IRON, MNULL,
 A lawnmower blade affixed to a long stick, in the right\n\
 hands, this thing could do some massive damage.");
 
+MELEE("anvil",             0, 1000,';', c_dkgray, IRON, MNULL,
+         20, 100, 12, 0, -5, 0, "\
+A large and heavy anvil.");
+
+MELEE("crucible",          0, 100,';',  c_ltgray, STONE, MNULL,
+         26, 30, 7, 0, -5, 0, "\
+A large clay bowl, used for melting metals and alloying.");
+
+//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
+MELEE("charcoal",		40,  0, '*', c_ltgray,	STONE,	MNULL,
+//	VOL WGT DAM CUT HIT FLAGS
+	 3,  4, 5,  0, -2, 0, "\
+A hefty lump of charcoal, useful for obvious reasons");
+
+//    NAME		RAR PRC SYM COLOR	MAT1	MAT2
+MELEE("clay",		40,  0, '*', c_ltgray,	STONE,	MNULL,
+//	VOL WGT DAM CUT HIT FLAGS
+	 2,  3, 5,  0, -2, 0, "\
+A large lump of unfired clay. Useful for moulds and the like.");
 //      NAME           RAR PRC SYM COLOR        MAT1    MAT2
 MELEE("steel frame",  25, 35, ']', c_cyan,  STEEL,   MNULL,
 //  VOL WGT DAM CUT HIT FLAGS

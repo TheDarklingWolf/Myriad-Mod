@@ -55,6 +55,7 @@ enum t_flag {
  alarmed,      // Sets off an alarm if smashed
  support,// Used as a boundary for roof construction
  thin_obstacle,// passable by player and monsters, but not by vehicles
+ charcoal, // Burns into charcoal
  num_t_flags   // MUST be last
 };
 
@@ -72,8 +73,8 @@ t_null = 0,
 t_hole,	// Real nothingness; makes you fall a z-level
 // Ground
 t_dirt, t_dirtmound, t_pit_shallow, t_pit, t_pit_covered, t_pit_spiked, t_pit_spiked_covered,
-t_rock_floor, t_rubble, t_wreckage, t_tarp,
-t_grass,
+t_rock_floor, t_rubble, t_wreckage, t_tarp, t_forge, t_crucible, t_anvil,
+t_grass, t_claydirt, t_claygrass,
 t_metal_floor,
 t_pavement, t_pavement_y, t_sidewalk,
 t_floor, t_floor_l,
@@ -81,7 +82,7 @@ t_grate,
 t_slime,
 t_bridge,
 // Walls & doors
-t_wall_half, t_wall_wood, t_wall_wood_chipped, t_wall_wood_broken,
+t_wall_half, t_wall_wood, t_wall_wood_chipped, t_wall_wood_broken, t_char, t_char_done,
 t_wall_v, t_wall_h,
 t_wall_metal_v, t_wall_metal_h,
 t_wall_glass_v, t_wall_glass_h,
@@ -166,6 +167,16 @@ const ter_t terlist[num_terrain_types] = {  // MUST match enum ter_id above!
 	mfb(transparent)|mfb(rough)|mfb(sharp)|mfb(container)},
 {"tarp",             '#', c_green,   2, tr_null,
         mfb(transparent)},
+{"forge",            '&', c_ltgray,  4, tr_null,
+        mfb(transparent)|mfb(support)},
+{"crucible",         'U', c_ltgray,  4, tr_null,
+        mfb(transparent)},
+{"anvil",            '&', c_dkgray,  3, tr_null,
+        mfb(transparent)},
+{"grass",	     '.', c_green,   2, tr_null,
+	mfb(transparent)|mfb(diggable)},
+{"dirt",	     '.', c_brown,   2, tr_null,
+	mfb(transparent)|mfb(diggable)},
 {"grass",	     '.', c_green,   2, tr_null,
 	mfb(transparent)|mfb(diggable)},
 {"metal floor",      '.', c_ltcyan,  2, tr_null,
@@ -195,6 +206,10 @@ const ter_t terlist[num_terrain_types] = {  // MUST match enum ter_id above!
 {"broken wood wall", '&', c_ltred,   0, tr_null,
 	mfb(transparent)|mfb(bashable)|mfb(flammable)|mfb(noitem)|
 	mfb(support)},
+{"wood pile",        '&', c_ltred,   0, tr_null,
+        mfb(bashable)|mfb(charcoal)},
+{"charcoal pile",    '&', c_dkgray,  0, tr_null,
+        mfb(bashable)},
 {"wall",             '|', c_ltgray,  0, tr_null,
 	mfb(flammable)|mfb(noitem)|mfb(support)},
 {"wall",             '-', c_ltgray,  0, tr_null,

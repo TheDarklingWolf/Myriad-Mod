@@ -179,6 +179,27 @@ void game::init_construction()
    COMP(itm_2x4, 10, NULL);
    COMP(itm_rag, 10, NULL);
 
+ CONSTRUCT("Prepare wood pile",          0, &construct::able_pit, &construct::done_nothing);
+  STAGE(t_char, 20);
+   COMP(itm_2x4, 14, itm_stick, 14, NULL);
+
+ CONSTRUCT("Forge",                      0, &construct::able_empty, &construct::done_nothing);
+  STAGE(t_forge, 30);
+  TOOL(itm_hammer, itm_nailgun,  itm_hatchet, NULL); 
+  COMP(itm_rock, 10, NULL);
+  COMP(itm_2x4, 6, NULL);
+  COMP(itm_nail, 50, NULL);
+
+ CONSTRUCT("Crucible",                   0, &construct::able_empty, &construct::done_nothing);
+  STAGE(t_crucible, 20);
+  TOOL(itm_hammer, itm_nailgun, itm_hatchet, NULL);
+  COMP(itm_2x4, 4, NULL);
+  COMP(itm_crucible, 1, NULL);
+
+ CONSTRUCT("Anvil",                      0, &construct::able_empty, &construct::done_nothing);
+  STAGE(t_anvil, 5);
+  COMP(itm_anvil, 1, NULL);
+
  CONSTRUCT("Start vehicle construction", 0, &construct::able_empty, &construct::done_vehicle);
   STAGE(t_null, 10);
    COMP(itm_frame, 1, NULL);

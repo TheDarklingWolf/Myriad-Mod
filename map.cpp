@@ -961,6 +961,22 @@ bool map::bash(int x, int y, int str, std::string &sound, int *res)
   }
   break;
 
+ case t_char: {
+  sound += "Clatter!";
+  ter(x, y) = t_pit;
+  int num_chunks = 16;
+   for (int i = 0; i < num_chunks; i++)
+    add_item(x, y, (*itypes)[itm_splinter], 0);
+   }
+
+ case t_char_done: {
+  sound += "Clatter!";
+  ter(x, y) = t_pit;
+  int num_chunks = 12;
+   for (int i = 0; i < num_chunks; i++)
+    add_item(x, y, (*itypes)[itm_charcoal], 0);
+   } 
+
  case t_rack:
   result = dice(3, 45);
   if (res) *res = result;

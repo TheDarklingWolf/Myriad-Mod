@@ -217,6 +217,18 @@ void inventory::form_from_map(game *g, point origin, int range)
     item fire(g->itypes[itm_fire], 0);
     fire.charges = 1;
     add_item(fire);
+ } if (g->m.ter(x, y) == t_forge) {
+    item forge(g->itypes[itm_forge], 0);
+    forge.charges = 1;
+    add_item(forge);
+ } if (g->m.ter(x, y) == t_crucible) {
+    item crucible(g->itypes[itm_crucible_fake], 0);
+    crucible.charges = 1;
+    add_item(crucible);
+ } if (g->m.ter(x, y) == t_anvil) {
+    item anvil(g->itypes[itm_anvil_fake], 0);
+    anvil.charges = 1;
+    add_item(anvil);
    }
   }
  }
