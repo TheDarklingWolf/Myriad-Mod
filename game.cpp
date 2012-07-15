@@ -5900,7 +5900,7 @@ void game::plmove(int x, int y)
     bool wall = false;
     for (int wallx = x - 1; wallx <= x + 1 && !wall; wallx++) {
      for (int wally = y - 1; wally <= y + 1 && !wall; wally++) {
-      if (m.has_flag(supports_roof, wallx, wally))
+      if (m.has_flag(support, wallx, wally))
        wall = true;
      }
     }
