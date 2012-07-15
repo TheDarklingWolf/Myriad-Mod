@@ -2006,7 +2006,7 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
    for (int j = 0; j < SEEY * 2; j++)
     ter(i, j) = grass_or_dirt();
   }
-  square(this, t_floor, 5, 5, SEEX * 2 - 6, SEEY * 2 - 6);
+  square(this, t_floor_l, 5, 5, SEEX * 2 - 6, SEEY * 2 - 6);
   square(this, t_stairs_down, SEEX - 1, SEEY - 1, SEEX, SEEY);
   line(this, t_wall_h, 4, 4, SEEX * 2 - 5, 4);
   line(this, t_door_c, SEEX - 1, 4, SEEX, 4);
