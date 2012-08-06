@@ -3284,7 +3284,7 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
    }
   } while (tries < 5);
   int ladderx = rng(0, SEEX * 2 - 1), laddery = rng(0, SEEY * 2 - 1);
-  while (ter(ladderx, laddery) != t_dirt && ter(ladderx, laddery) != t_grass) {
+  while (ter(ladderx, laddery) != t_claydirt && ter(ladderx, laddery) != t_claygrass) {
    ladderx = rng(0, SEEX * 2 - 1);
    laddery = rng(0, SEEY * 2 - 1);
   }
