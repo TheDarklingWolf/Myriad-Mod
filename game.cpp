@@ -3098,8 +3098,10 @@ void game::monmove()
      }
     }
    }
-   if (!okay)
+   if (!okay){
     z[i].dead = true;
+    break;
+   }
     //build_monmap();
   }
 
