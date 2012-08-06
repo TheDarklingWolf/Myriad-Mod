@@ -1585,7 +1585,7 @@ void player::disp_status(WINDOW *w, game *g)
   mvwprintz(w, 3, 29, col_dex, "Dex %s%d", dex_cur >= 10 ? "" : " ", dex_cur);
   mvwprintz(w, 3, 36, col_int, "Int %s%d", int_cur >= 10 ? "" : " ", int_cur);
   mvwprintz(w, 3, 43, col_per, "Per %s%d", per_cur >= 10 ? "" : " ", per_cur);
-  mvwprintz(w, 3, 50, col_spd, "Spd %s%d", spd_cur >= 10 ? "" : " ", spd_cur);
+  mvwprintz(w, 3, 50, col_spd, "S %s%d", spd_cur >= 10 ? "" : " ", spd_cur);
  }
 }
 
