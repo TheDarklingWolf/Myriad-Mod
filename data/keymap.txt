@@ -93,5 +93,5 @@ help ?
 
 # DEBUG FUNCTIONS
 debug_mode ~
-# debug Z
+debug Z
 # debug_scent -

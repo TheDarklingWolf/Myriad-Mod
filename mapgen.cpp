@@ -3271,7 +3271,7 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
     bool okay = true;
     for (int x = x1; x <= x2 && okay; x++) {
      for (int y = y1; y <= y2 && okay; y++) {
-      if (ter(x, y) != t_grass && ter(x, y) != t_dirt)
+      if (ter(x, y) != t_claygrass && ter(x, y) != t_claydirt)
        okay = false;
      }
     }
