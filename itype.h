@@ -65,7 +65,7 @@ itm_wrapper, itm_syringe, itm_rag, itm_fur, itm_leather, itm_superglue,
  itm_mace, itm_morningstar, itm_pool_cue, itm_pool_ball, itm_candlestick, itm_log,
  itm_splinter, itm_skewer, itm_sharp_rock, itm_cord, itm_primitive_mace,
  itm_wire, itm_spring, itm_lawnmower, itm_lawnmower_blade, itm_lawnmower_sword,
- itm_lawnmower_halberd, itm_crucible, itm_anvil, itm_charcoal, itm_clay,
+ itm_lawnmower_halberd, itm_crucible, itm_anvil, itm_charcoal, itm_clay, itm_shards,
 // Vehicle parts
 itm_frame, itm_wheel, itm_big_wheel, itm_seat, itm_vehicle_controls,
  itm_combustion_small, itm_combustion, itm_combustion_large,

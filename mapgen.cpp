@@ -1674,6 +1674,76 @@ void map::draw_map(oter_id terrain_type, oter_id t_north, oter_id t_east,
   if (terrain_type == ot_s_electronics_west)
    rotate(3);
   break;
+  
+ case ot_s_workshop_north:
+ case ot_s_workshop_east:
+ case ot_s_workshop_south:
+ case ot_s_workshop_west:
+     /*
+     -------""-+--"""------
+     |{{{{{           #   |
+     |{               #   |
+     |{               #   |
+     |{               ### |
+     |{                   |
+     |{     {{            "
+     |{     {{            "
+     |{                   "
+     |{                   |
+     |{                   |
+     |{  {{     {{        "
+     |{  {{     {{        "
+     |{                   "
+     |{                   |
+     |#     {      {     #|
+     |#     {      {     #|
+     |#     {      {     #|
+     |#     {      {     #|
+     |####################|
+     ----------------------
+
+     */
+
+  square(this, grass_or_dirt(), 0, 0, SEEX * 2, SEEY * 2);
+  square(this, t_floor, 4, 4, SEEX * 2 - 4, SEEY * 2 - 4);
+  line(this, t_wall_v, 3, 4, 3, SEEY * 2 - 4);
+  line(this, t_wall_v, SEEX * 2 - 3, 4, SEEX * 2 - 3, SEEY * 2 - 4);
+  line(this, t_wall_h, 3, 3, SEEX * 2 - 3, 3);
+  line(this, t_wall_h, 3, SEEY * 2 - 3, SEEX * 2 - 3, SEEY * 2 - 3);
+  ter(13, 3) = t_door_c;
+  line(this, t_window, 10, 3, 11, 3);
+  line(this, t_window, 16, 3, 18, 3);
+  line(this, t_window, SEEX * 2 - 3, 9,  SEEX * 2 - 3, 11);
+  line(this, t_window, SEEX * 2 - 3, 14,  SEEX * 2 - 3, 16);
+  line(this, t_counter, 4, SEEY * 2 - 4, SEEX * 2 - 4, SEEY * 2 - 4);
+  line(this, t_counter, 4, SEEY * 2 - 5, 4, SEEY * 2 - 9);
+  line(this, t_counter, SEEX * 2 - 4, SEEY * 2 - 5, SEEX * 2 - 4, SEEY * 2 - 9);
+  line(this, t_counter, SEEX * 2 - 7, 4, SEEX * 2 - 7, 6);
+  line(this, t_counter, SEEX * 2 - 7, 7, SEEX * 2 - 5, 7);
+  line(this, t_rack, 9, SEEY * 2 - 5, 9, SEEY * 2 - 9);
+  line(this, t_rack, SEEX * 2 - 9, SEEY * 2 - 5, SEEX * 2 - 9, SEEY * 2 - 9);
+  line(this, t_rack, 4, 4, 4, SEEY * 2 - 10);
+  line(this, t_rack, 5, 4, 8, 4);
+  place_items(mi_wood_working_tools, 25, 4, SEEY * 2 - 4, SEEX * 2 - 4,
+              SEEY * 2 - 4, false, turn - 50);
+  place_items(mi_wood_working_tools, 90, 4, SEEY * 2 - 5, 4, SEEY * 2 - 9,
+              false, turn - 50);
+  place_items(mi_wood_working_tools, 60, SEEX * 2 - 4, SEEY * 2 - 5,
+              SEEX * 2 - 4, SEEY * 2 - 9, false, turn - 50);
+  place_items(mi_wood_working_tools, 70, 9, SEEY * 2 - 5, 9, SEEY * 2 - 9,
+              false, turn - 50);
+  place_items(mi_wood_working_tools, 70, SEEX * 2 - 9, SEEY * 2 - 5,
+              SEEX * 2 - 9, SEEY * 2 - 9, false, turn - 50);
+  place_items(mi_wood_working_tools, 85, 4, 4, 4, SEEY * 2 - 10, false,
+              turn - 50);
+  place_items(mi_wood_working_tools, 85, 5, 4, 8, 4, false, turn - 50);
+  if (terrain_type == ot_s_workshop_east)
+   rotate(1);
+  if (terrain_type == ot_s_workshop_south)
+   rotate(2);
+  if (terrain_type == ot_s_workshop_west)
+   rotate(3);
+  break;
 
  case ot_s_sports_north:
  case ot_s_sports_east:

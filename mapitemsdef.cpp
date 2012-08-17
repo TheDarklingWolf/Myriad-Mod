@@ -162,6 +162,12 @@ void game::init_mapitems()
         itm_lawnmower, itm_duct_tape, NULL);
 
  setvector(
+   mapitems[mi_wood_working_tools],
+        itm_nailgun, itm_hammer, itm_saw, itm_hacksaw, itm_crowbar, itm_nail, itm_chainsaw_off, itm_extinguisher,
+        itm_screwdriver, itm_glasses_safety, itm_hat_hard, itm_pipe, itm_textbook_carpentry, itm_2x4,
+        NULL);
+ 
+ setvector(
    mapitems[mi_tools],
 	itm_screwdriver, itm_hammer, itm_wrench, itm_saw, itm_hacksaw,
 	itm_hammer_sledge, itm_xacto, itm_flashlight, itm_crowbar, itm_nailgun,

@@ -1055,6 +1055,11 @@ MELEE("clay",		40,  0, '*', c_ltgray,	STONE,	MNULL,
 //	VOL WGT DAM CUT HIT FLAGS
 	 2,  3, 5,  0, -2, 0, "\
 A large lump of unfired clay. Useful for moulds and the like.");
+
+MELEE("glass shards",   0,   0, ',', c_cyan,    GLASS,  MNULL,
+         0,  1, 0,  0,  -2, 0, "\
+Some shards of glass, be careful not to cut yourself!");
+
 //      NAME           RAR PRC SYM COLOR        MAT1    MAT2
 MELEE("steel frame",  25, 35, ']', c_cyan,  STEEL,   MNULL,
 //  VOL WGT DAM CUT HIT FLAGS

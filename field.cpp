@@ -198,8 +198,8 @@ bool map::process_fields_in_submap(game *g, int gridn)
      if (cur->density == 3)
       ter(x, y) = t_rubble;
 
-    } else if (has_flag(charcoal, x, y) && one_in(62 - cur->density * 10)) {
-     cur->age -= cur->density * cur->density * 30;
+    } else if (has_flag(charcoal, x, y) && one_in(32 - cur->density * 10)) {
+     cur->age -= cur->density * cur->density * 200;
      smoke += 10;
      if (cur->density == 3)
       ter(x, y) = t_char_done;

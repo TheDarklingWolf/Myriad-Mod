@@ -136,7 +136,7 @@ recipes.push_back( new recipe(id, result, category, skill1, skill2, difficulty,\
   TOOL(itm_screwdriver, -1, itm_toolset, -1, NULL);
   COMP(itm_superglue, 1, itm_string_36, 1, NULL);
   COMP(itm_can_food, 1, itm_can_drink, 1, itm_canister_empty, 1, NULL);
-  COMP(itm_nail, 30, itm_bb, 100, NULL);
+  COMP(itm_nail, 30, itm_bb, 100, itm_shards, 10, NULL);
   COMP(itm_shot_bird, 6, itm_shot_00, 3, itm_shot_slug, 2,
      itm_gasoline, 1, NULL);
 

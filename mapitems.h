@@ -39,6 +39,7 @@ enum items_location {
  mi_cavern,
  mi_spider,
  mi_ant_food, mi_ant_egg,
+ mi_wood_working_tools,
 // Monster drops
  mi_biollante, mi_bugs, mi_bees, mi_wasps, mi_robots,
 // Map Extras

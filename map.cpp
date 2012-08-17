@@ -874,7 +874,10 @@ bool map::bash(int x, int y, int str, std::string &sound, int *res)
   result = rng(0, 6);
   if (res) *res = result;
   if (str >= result) {
-   sound += "glass breaking!";
+ int shardss = rng(2, 6);
+  for (int i = 0; i < shardss; i++)
+   add_item(x, y, (*itypes)[itm_shards], 0);
+  sound += "glass breaking!";
    ter(x, y) = t_window_frame;
    return true;
   } else {
@@ -997,6 +1000,7 @@ bool map::bash(int x, int y, int str, std::string &sound, int *res)
   break;
 
  case t_counter:
+ case t_bench:
   result = dice(3, 45);
   if (res) *res = result;
   if (str >= result) {
@@ -1037,7 +1041,10 @@ bool map::bash(int x, int y, int str, std::string &sound, int *res)
   result = rng(0, 20);
   if (res) *res = result;
   if (str >= result) {
-   sound += "glass breaking!";
+    int shardss = rng(4, 18);
+  for (int i = 0; i < shardss; i++)
+   add_item(x, y, (*itypes)[itm_shards], 0);
+  sound += "glass breaking!";
    ter(x, y) = t_floor;
    return true;
   } else {
