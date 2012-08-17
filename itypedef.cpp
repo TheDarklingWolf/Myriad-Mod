@@ -3425,12 +3425,18 @@ TOOL("glowstick",      3, 400,'*', c_green,	PLASTIC,MNULL,
 Use this glowstick to crack it, it provides some light");
 
 //	NAME		RAR VAL	SYM  COLOR	MAT1	MAT
-TOOL("glowstick (lit)",      3, 400,'*', c_green,	PLASTIC,MNULL,
+TOOL("glowstick (lit)", 3, 400,'*', c_green,	PLASTIC,MNULL,
 // VOL WGT DAM CUT HIT MAX DEF USE SEC FUEL	REVERT	  FUNCTION
     1,  1, 0,  0, -1, 100,100, 0, 15, AT_NULL, itm_null, &iuse::glowstick,0,"\
 Use this glowstick to crack it, it provides some light");
 
+TOOL("chair",          20,400,';', c_ltred,     WOOD, MNULL,
+   10, 3, 6,   0, 1,  0,  0,   0, 0, AT_NULL, itm_null, &iuse::set_trap,0,"\
+A simple wooden chair, having a nice sit down is always good.");
 
+TOOL("camp chair",          20,400,';', c_green,     IRON, MNULL,
+   5, 3, 3,   0, 0,  0,  0,   0, 0, AT_NULL, itm_null, &iuse::set_trap,0,"\
+A foldable chair, a metal frame under a water resistant fabric cover.");
 // BIONICS
 // These are the modules used to install new bionics in the player.  They're
 // very simple and straightforward; a difficulty, followed by a NULL-terminated

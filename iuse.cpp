@@ -1073,7 +1073,7 @@ void iuse::radio_on(game *g, player *p, item *it, bool t)
     if (spot == std::string::npos)
      spot = RADIO_PER_TURN;
     segments.push_back( message.substr(0, spot) );
-    message = message.substr(spot);
+    message = message.substr(spot + 1);
    }
    segments.push_back(message);
    int index = g->turn % (segments.size());
@@ -1272,6 +1272,16 @@ void iuse::set_trap(game *g, player *p, item *it, bool t)
  case itm_rollmat:
   message << "You unroll the mat and lay it on the ground.";
   type = tr_rollmat;
+  practice = 0;
+  break;
+ case itm_chair:
+  message << "You place the chair on the ground.";
+  type = tr_chair;
+  practice = 0;
+  break;
+ case itm_camp_chair:
+  message << "You unfold the chair and set it down.";
+  type = tr_campchair;
   practice = 0;
   break;
  case itm_boobytrap:

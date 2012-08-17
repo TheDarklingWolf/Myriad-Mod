@@ -166,7 +166,7 @@ itm_lighter, itm_sewing_kit, itm_scissors, itm_hammer, itm_extinguisher,
  itm_vacutainer, itm_welder,  itm_knife_steak,itm_knife_butcher, itm_knife_combat,
  itm_e_tool_c, itm_e_tool, itm_cot, itm_rollmat, itm_rock_knife, itm_saw, itm_ax,
  itm_screwdriver, itm_wrench, itm_duct_tape, itm_flare, itm_flare_lit,
- itm_glowstick, itm_glowstick_lit,
+ itm_glowstick, itm_glowstick_lit, itm_chair, itm_camp_chair,
 // Bionics containers
 itm_bionics_battery,       itm_bionics_power,   itm_bionics_tools,
  itm_bionics_neuro,        itm_bionics_sensory, itm_bionics_aquatic,

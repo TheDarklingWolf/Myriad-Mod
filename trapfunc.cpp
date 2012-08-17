@@ -15,23 +15,13 @@ void trapfuncm::bubble(game *g, monster *z, int x, int y)
  g->m.tr_at(x, y) = tr_null;
 }
 
-void trapfunc::cot(game *g, int x, int y)
-{
-}
-
 void trapfuncm::cot(game *g, monster *z, int x, int y)
 {
  g->add_msg("The zombie stumbles over the cot");
  z->moves -= 100;
 }
 
-void trapfunc::rollmat(game *g, int x, int y)
-{
-}
 
-void trapfuncm::rollmat(game *g, monster *z, int x, int y)
-{
-}
 void trapfunc::beartrap(game *g, int x, int y)
 {
  g->add_msg("A bear trap closes on your foot!");

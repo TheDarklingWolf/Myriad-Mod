@@ -163,7 +163,7 @@ void player::pick_name()
  ss << random_first_name(male) << " " << random_last_name();
  name = ss.str();
 }
- 
+
 void player::reset(game *g)
 {
 // Reset our stats to normal levels
