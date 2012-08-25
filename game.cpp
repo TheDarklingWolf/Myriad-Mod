@@ -548,13 +548,7 @@ bool game::do_turn()
   u.hp_cur[hp_torso] = 0;
  }
 
- if (turn % 50 == 0) {	// Hunger, thirst, & fatigue up every 5 minutes
-  if ((!u.has_trait(PF_LIGHTEATER) || !one_in(3)) &&
-      (!u.has_bionic(bio_recycler) || turn % 300 == 0))
-   u.hunger++;
-  if ((!u.has_bionic(bio_recycler) || turn % 100 == 0) &&
-      (!u.has_trait(PF_PLANTSKIN) || !one_in(5)))
-   u.thirst++;
+ if (turn % 50 == 0) {	// Fatigue up every 5 minutes
   u.fatigue++;
   if (u.fatigue == 192 && !u.has_disease(DI_LYING_DOWN) &&
       !u.has_disease(DI_SLEEP)) {
@@ -574,7 +568,13 @@ bool game::do_turn()
   if (u.has_bionic(bio_solar) && is_in_sunlight(u.posx, u.posy))
    u.charge_power(1);
  }
- if (turn % 300 == 0) {	// Pain up/down every 30 minutes
+ if (turn % 300 == 0) {	// Pain, Hunger and Thirst calculations
+  if ((!u.has_trait(PF_LIGHTEATER) || !one_in(3)) &&
+      (!u.has_bionic(bio_recycler) || turn % 300 == 0))
+   u.hunger++;
+  if ((!u.has_bionic(bio_recycler) || turn % 100 == 0) &&
+      (!u.has_trait(PF_PLANTSKIN) || !one_in(5)))
+   u.thirst++;
   if (u.pain > 0)
    u.pain--;
   else if (u.pain < 0)
@@ -592,7 +592,8 @@ bool game::do_turn()
   if (u.radiation > 1 && one_in(3))
    u.radiation--;
   u.get_sick(this);
-// Auto-save on the half-hour
+// Auto-save on the half-hour, if the player isn't in a vehicle.
+ if (!u.in_vehicle)
   save();
  }
 // Update the weather, if it's time.
@@ -644,8 +645,18 @@ bool game::do_turn()
   draw();
   refresh();
  }
-
  update_skills();
+
+ if (turn % 100 == 0) {
+   m.translate(t_wheatseed, t_wheatsprout);
+   m.translate(t_potatoseed, t_potatosprout);
+}
+
+ if (turn % 200 == 0) {
+   m.translate(t_wheatsprout, t_wheat);
+   m.translate(t_potatosprout, t_potato);
+}
+
  if (turn % 10 == 0)
   u.update_morale();
  return false;

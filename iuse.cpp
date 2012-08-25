@@ -2368,6 +2368,41 @@ void iuse::glowstick(game *g, player *p, item *it, bool t)
   it->make(g->itypes[itm_glowstick_lit]);
   it->active = true;
 }
+
+void iuse::plant_seeds(game *g, player *p, item *it, bool t)
+{
+ int dirx, diry;
+ g->draw();
+ mvprintw(0, 0, "Place where?");
+ get_direction(g, dirx, diry, input());
+ if (dirx == -2) {
+  g->add_msg("Invalid direction.");
+  return;
+ }
+ int posx = dirx + p->posx;
+ int posy = diry + p->posy;
+ if (g->m.ter(posx, posy) != t_dirtmound) {
+  g->add_msg("You can't plant %s there.", it->tname().c_str());
+  return;
+ }
+
+ ter_id type = t_null;
+ std::stringstream message;
+
+ switch (it->type->id) {
+ case itm_wheatseeds:
+  message << "You plant the wheat seeds.";
+  type = t_wheatseed;
+  break;
+ case itm_potatoseeds:
+  message << "You plant the potato seeds.";
+  type = t_potatoseed;
+  break;
+ }
+ g->add_msg(message.str().c_str());
+ g->m.ter(posx, posy) = type;
+ p->moves -= 100;
+}
 // *BFNY*
 
 /* MACGUFFIN FUNCTIONS

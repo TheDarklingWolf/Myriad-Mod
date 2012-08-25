@@ -106,6 +106,7 @@ class iuse
   void wrench           (game *g, player *p, item *it, bool t);
   void flare            (game *g, player *p, item *it, bool t);
   void glowstick        (game *g, player *p, item *it, bool t);
+  void plant_seeds      (game *g, player *p, item *it, bool t);
 // MACGUFFINS
   void mcg_note		(game *g, player *p, item *it, bool t);
 // ARTIFACTS

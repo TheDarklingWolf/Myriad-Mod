@@ -3415,12 +3415,12 @@ A roll of duct tape. Basically the most useful thing ever.");
 TOOL("flare",		 3, 400,'*', c_red,	PLASTIC,MNULL,
 // VOL WGT DAM CUT HIT MAX DEF USE SEC FUEL	REVERT	  FUNCTION
     1,  1, 10,  0, -1,  100,  100,  0,  0, AT_NULL, itm_null, &iuse::flare,0,"\
-Use this flare to light it, it can then be thrown to light u an area");
+Use this flare to light it, it can then be thrown to light up an area");
 
 //	NAME		RAR VAL	SYM  COLOR	MAT1	MAT
 TOOL("flare (lit)",      3, 400,'*', c_red,	PLASTIC,MNULL,
 // VOL WGT DAM CUT HIT MAX DEF USE SEC FUEL	REVERT	  FUNCTION
-    1,  1, 10,  0, -1, 100,100, 0, 15, AT_NULL, itm_null, &iuse::none,0,"\
+    1,  1, 10,  0, -1, 100,100, 0, 0, AT_NULL, itm_null, &iuse::none,0,"\
 This flare is lit.");
 
 //	NAME		RAR VAL	SYM  COLOR	MAT1	MAT
@@ -3442,6 +3442,15 @@ A simple wooden chair, having a nice sit down is always good.");
 TOOL("camp chair",          20,400,';', c_green,     IRON, MNULL,
    5, 3, 3,   0, 0,  0,  0,   0, 0, AT_NULL, itm_null, &iuse::set_trap,0,"\
 A foldable chair, a metal frame under a water resistant fabric cover.");
+
+TOOL("wheat seeds",        50, 1000,';', c_brown,    WOOD, MNULL,
+   1, 0, 0,   0, 0,  0,  0,   0, 0, AT_NULL, itm_null, &iuse::plant_seeds,0,"\
+A small bag of wheat seeds, agricultural!");
+
+TOOL("potato seeds",       50,1000,';',  c_brown,    WOOD, MNULL,
+   1, 0, 0,   0, 0,  0,  0,   0, 0, AT_NULL, itm_null, &iuse::plant_seeds,0,"\
+A small bag of potato seeds, agricultural!");
+
 // BIONICS
 // These are the modules used to install new bionics in the player.  They're
 // very simple and straightforward; a difficulty, followed by a NULL-terminated
